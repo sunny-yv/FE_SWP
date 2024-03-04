@@ -1,0 +1,37 @@
+.introduction{
+  background-color: bisque;
+}
+.body-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title-body-top-left {
+  padding: 120px;
+}
+.title-body-top-right > img {
+  width: 80%;
+}
+.body-mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title-body-mid-right {
+  padding: 120px;
+}
+.title-body-mid-left > img {
+  width: 80%;
+  margin-left: 120px;
+}
+.body-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title-body-bottom-left {
+  padding: 120px;
+}
+.title-body-bottom-right > img {
+  width: 80%;
+}

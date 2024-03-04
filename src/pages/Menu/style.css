@@ -1,0 +1,33 @@
+.menu-text-1{
+    padding-top: 7%;
+    padding-left: 20px;
+    padding-bottom: 2%;
+    align-content: center;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    size: 28;
+    
+
+}
+.menus{
+    display: flex;
+    flex-wrap:wrap;
+    padding-inline: 56px;
+    /* width: 100%; */
+    
+}
+
+.menu-1{
+    /* margin: 5%; */
+    flex-wrap: wrap;
+    width: 25%;
+    padding: 16px;
+    height: 500px;
+    
+
+}
+
+
+
+
+

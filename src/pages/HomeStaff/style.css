@@ -1,0 +1,121 @@
+.desktop-1,
+.desktop-1 * {
+  box-sizing: border-box;
+}
+.desktop-1 {
+  background: #F4E0C7;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.rectangle-5 {
+  background: #9e826c;
+  border-radius: 20px;
+  width: 504px;
+  height: 296px;
+  position: absolute;
+  left: 138px;
+  top: 200px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.rectangle-6 {
+  background: #9e826c;
+  border-radius: 20px;
+  width: 504px;
+  height: 296px;
+  position: absolute;
+  left: 880px;
+  top: 200px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.t-b-n {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 320px;
+  top: 320px;
+}
+.t-i-ch {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 1065px;
+  top: 320px;
+}
+.line-1 {
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px 0 0 0;
+  width: 100%;
+  height: 0px;
+  position: absolute;
+  left: 0px;
+  top: 100px;
+  transform-origin: 0 0;
+  transform: rotate(-0.159deg) scale(1, 1);
+}
+.line-2 {
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px 0 0 0;
+  width: 100%;
+  height: 0px;
+  position: absolute;
+  left: 0px;
+  top: 600px;
+}
+.ngu-n-n {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 720px;
+  top: 30px;
+}
+.b-n-h-ng {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 310px;
+  top: 639px;
+}
+.nh-h-ng {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 1030px;
+  top: 639px;
+}
+.vector {
+  height: auto;
+  position: absolute;
+  right: 79.58%;
+  left: 18.4%;
+  width: 2.01%;
+  bottom: 1.95%;
+  top: 93.5%;
+  height: 3.61%;
+  overflow: visible;
+}
+.clarity-settings-solid {
+  width: 29px;
+  height: 37px;
+  position: absolute;
+  left: 1000px;
+  top: 92.5%;
+  overflow: visible;
+}
