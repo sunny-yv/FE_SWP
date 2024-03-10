@@ -23,11 +23,15 @@ import ListAllMenu from "./pages/Menu/ListAllMenu";
 import Drinks from "./pages/Menu/Drinks";
 import CatProducts from "./pages/Menu/CatProducts";
 import Admin from "./pages/Admin";
+import Manager from "./pages/Manager";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./contexts/auth";
+import CreateCat from "./pages/Manager/CreateCat";
 
+import ReadCat from "./pages/Manager/ReadCat";
+import UpdateCat from "./pages/Manager/UpdateCat";
 function App() {
   return (
     <AuthProvider>
@@ -58,6 +62,12 @@ function App() {
           <Route path="/drinks" element={<Drinks />} />
           <Route path="/catproducts" element={<CatProducts />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/manager" element={<Manager />} />
+          <Route path="/createcat" element={<CreateCat />} />
+
+          <Route path="/readcat" element={<ReadCat />} />
+          <Route path="/updatecat" element={<UpdateCat />} />
+          <Route path="/updatecat/:catID" element={<UpdateCat />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

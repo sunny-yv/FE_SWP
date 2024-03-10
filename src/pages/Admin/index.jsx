@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
 import "./style.css";
-
+import { useUserData } from "../../contexts/auth";
 import { Link, useNavigate } from "react-router-dom";
-
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 function Admin() {
-    const navigate = useNavigate();
-    // const userData = useUserData();
-    // useEffect(() => {
-    //     if(!userData || userData.roleName !== "admin") {
-    //         navigate("/");
-    //     }
-    // }, [])  
-    return (
+  const navigate = useNavigate();
+  const userData = useUserData();
+  useEffect(() => {
+    if (!userData || userData.roleName !== "Manager") {
+      navigate("/");
+    } else {
+      navigate("/admin");
+    }
+  }, []);
+  return (
     <div className="admin-page">
+      <Header />
       <head>
         <meta charSet="UTF-8" />
         <title>aaaa</title>
@@ -60,12 +64,6 @@ function Admin() {
               <a href="#">
                 <i className="fas fa-cog"></i>
                 <span>Settings</span>
-              </a>
-            </li>
-            <li className="logout">
-              <a href="#">
-                <i className="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
               </a>
             </li>
           </ul>
@@ -195,6 +193,7 @@ function Admin() {
           </div>
         </div>
       </body>
+      <Footer />
     </div>
   );
 }
