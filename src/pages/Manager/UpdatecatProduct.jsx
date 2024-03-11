@@ -49,13 +49,16 @@ function UpdateCatProduct() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      if (JSON.stringify(catProductData) !== JSON.stringify(originalCatData)) {
+      if (
+        JSON.stringify(catProductData) !==
+        JSON.stringify(originalCatProductData)
+      ) {
         const formData = new FormData();
         formData.append("catProductName", catProductData.catProductName);
         formData.append("catProductType", catProductData.catProductType);
         formData.append("price", catProductData.price);
 
-        formData.append("status", catData.status);
+        formData.append("status", catProductData.status);
 
         if (catProductData.image) {
           formData.append("image", catProductData.image);
@@ -132,7 +135,7 @@ function UpdateCatProduct() {
                 accept="image/*"
                 type="file"
                 onChange={(event) =>
-                  setCatData({
+                  setCatProductData({
                     ...catProductData,
                     image: event.target.files[0],
                   })

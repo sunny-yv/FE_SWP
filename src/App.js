@@ -37,7 +37,8 @@ import ReadDrink from "./pages/Manager/ReadDrink";
 import UpdateDrink from "./pages/Manager/UpdateDrink";
 import CreateCatProduct from "./pages/Manager/CreateCatProduct";
 import ReadCatProduct from "./pages/Manager/ReadCatProduct";
-import UpdateCatProduct from "./pages/Manager/UpdatecatProduct";
+import UpdateCatProduct from "./pages/Manager/UpdateCatProduct";
+
 function App() {
   return (
     <AuthProvider>
