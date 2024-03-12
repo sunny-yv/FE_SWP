@@ -91,7 +91,7 @@ function CreateCat() {
   };
 
   return (
-    <div className="manager-1">
+    <div className="manager">
       <Form onSubmit={handleSubmit}>
         <FormField>
           <label>Tên</label>
@@ -184,7 +184,9 @@ function CreateCat() {
           <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
         </FormField>
         {isCreated && <p style={{ color: "green" }}>Thêm mèo thành công!</p>}
-        <Button  className="btcreatecat" type="submit">Thêm</Button>
+        <Button className="btcreatecat" type="submit">
+          Thêm
+        </Button>
       </Form>
     </div>
   );

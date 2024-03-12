@@ -1,20 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+/* Admin.css */
 
-/* * {
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-} */
+/* Reset CSS */
 
-
-
-/* body {
+.admin-page  {
+  
   display: flex;
-} */
+  flex-direction: column;
+}
 
+.body-admin{
+  display: flex;
+  flex-direction: row;
+}
+/* Sidebar */
 .sidebar {
   position: sticky;
   top: 0;
@@ -28,8 +26,6 @@
   background: rgba(113, 99, 186, 255);
 }
 
-
-
 .logo {
   height: 80px;
   padding: 16px;
@@ -37,7 +33,6 @@
 
 .menu {
   height: 88%;
-  position: relative;
   list-style: none;
   padding: 0;
 }
@@ -71,39 +66,22 @@
   font-size: 1.2rem;
 }
 
-.logout {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-/* Main body section */
+/* Main Content */
 .main--content {
-  position: relative;
-  background: #ebe9e9;
-  width: 1310px;
+  flex: 1;
   padding: 1rem;
-  height: 80%; 
+  background: #ebe9e9;
+  margin-top: 210px;
 }
 
-.header--wrapper img {
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 50%;
-  
-}
-
+/* Header */
 .header--wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   background: #fff;
   padding: 10px 2rem;
   margin-bottom: 1rem;
-  margin-top: 80px;
 }
 
 .header--title {
@@ -141,7 +119,7 @@
   transform: scale(1.2);
 }
 
-/* card container */
+/* Card Container */
 .card--container {
   background: #fff;
   padding: 2rem;
@@ -160,95 +138,7 @@
   font-size: 15px;
 }
 
-.payment--card {
-  background: rgb(229, 223, 233);
-  border-radius: 10px;
-  padding: 1.2rem;
-  width: 290px;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.5s ease-in-out;
-}
-
-.payment--card:hover {
-  transform: translateY(-5px);
-}
-
-.card--header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.amount {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  font-size: 12px;
-  font-weight: 200;
-}
-
-.amount--value {
-  font-size: 24px;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: 600;
-}
-
-.icon {
-  color: #fff;
-  padding: 1rem;
-  height: 60px;
-  width: 60px;
-  text-align: center;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  background: red;
-}
-
-.card-detail {
-  font-size: 18px;
-  color: #777777;
-  letter-spacing: 2px;
-  font-family: "Courier New", Courier, monospace;
-}
-
-/* color css */
-.light-red {
-  background: rgb(251, 233, 233);
-}
-
-.light-purple {
-  background: rgb(254, 226, 254);
-}
-
-.light-green {
-  background: rgb(235, 254, 235);
-}
-
-.light-blue {
-  background: rgb(236, 236, 254);
-}
-
-.dark-red {
-  background: red;
-}
-
-.dark-purple {
-  background: purple;
-}
-.dark-green {
-  background: green;
-}
-.dark-blue {
-  background: blue;
-}
-
-/* tabular section */
+/* Tabular Wrapper */
 .tabular--wrapper {
   background: #fff;
   margin-top: 1rem;
@@ -305,3 +195,15 @@ tfoot td {
   background: none;
   cursor: pointer;
 }
+/* 
+const navigate = useNavigate();
+  const userData = useUserData();
+  const [selectedItem, setSelectedItem] = useState("");
+
+  useEffect(() => {
+    if (!userData || userData.roleName !== "Manager") {
+      navigate("/");
+    } else {
+      navigate("/admin");
+    }
+  }, []); */

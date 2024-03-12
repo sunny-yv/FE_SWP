@@ -38,6 +38,7 @@ import UpdateDrink from "./pages/Manager/UpdateDrink";
 import CreateCatProduct from "./pages/Manager/CreateCatProduct";
 import ReadCatProduct from "./pages/Manager/ReadCatProduct";
 import UpdateCatProduct from "./pages/Manager/UpdateCatProduct";
+import UpdateManager from "./pages/Admin/UpdateManager";
 
 function App() {
   return (
@@ -85,6 +86,8 @@ function App() {
           />
           <Route path="/updatedrink" element={<UpdateDrink />} />
           <Route path="/updatedrink/:drinkID" element={<UpdateDrink />} />
+          <Route path="/updatemanager" element={<UpdateManager />} />
+          <Route path="/updatemanager/:coffeeID" element={<UpdateManager />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

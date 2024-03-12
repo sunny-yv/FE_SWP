@@ -1,7 +1,8 @@
-.manager-1 {
+.manager {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 3%;
 }

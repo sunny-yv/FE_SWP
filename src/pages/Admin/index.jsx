@@ -1,201 +1,207 @@
-import React, { useEffect } from "react";
-import "./style.css";
-import { useUserData } from "../../contexts/auth";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-function Admin() {
+import { useState, useEffect } from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import CreateManager from "../../components/CreateManager";
+import ReadManager from "../../components/ReadManager";
+
+import { MdDomain, MdCreateNewFolder } from "react-icons/md";
+import { useAuth, useUserData } from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+export default function Admin() {
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const [menudata, setMenudata] = useState("Home");
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   const navigate = useNavigate();
   const userData = useUserData();
+  const { loaded } = useAuth();
+
   useEffect(() => {
-    if (!userData || userData.roleName !== "Manager") {
+    if (loaded && (!userData || userData.roleName !== "Manager")) {
       navigate("/");
-    } else {
-      navigate("/admin");
     }
-  }, []);
+  }, [loaded, navigate, userData]);
+
   return (
-    <div className="admin-page">
-      <Header />
-      <head>
-        <meta charSet="UTF-8" />
-        <title>aaaa</title>
-        <link rel="stylesheet" href="style.css" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        />
-      </head>
-      <body>
-        <div className="sidebar">
-          <div className="logo"></div>
-          <ul className="menu">
-            <li className="active">
-              <a href="#">
-                <i className="fas fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-user"></i>
-                <span>Profile</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-chart-bar"></i>
-                <span>Statistics</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-question-circle"></i>
-                <span>FAQ</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-star"></i>
-                <span>Testimonials</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-cog"></i>
-                <span>Settings</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="main--content">
-          <div className="header--wrapper">
-            <div className="header--title">
-              <span>Primary</span>
-              <h2>Dashboard</h2>
-            </div>
-            <div className="user--info">
-              <div className="search--box">
-                <i className="fa-solid fa-search"></i>
-                <input type="text" placeholder="Search" />
-              </div>
-              <img src="./asset/user--info.jpg" alt="" />
-            </div>
-          </div>
-
-          <div className="card--container">
-            <h3 className="main--title">Today's data</h3>
-            <div className="card--wrapper">
-              <div className="payment--card light-red">
-                <div className="card--header">
-                  <div className="amount">
-                    <span className="title">Payment amount </span>
-                    <span className="amount--value">$500.00 </span>
-                  </div>
-                  <i className="fas fa-dollar-sign icon"></i>
-                </div>
-                <span className="card-detail">**** **** **** 3484</span>
-              </div>
-
-              <div className="payment--card light-purple">
-                <div className="card--header">
-                  <div className="amount">
-                    <span className="title">Payment order </span>
-                    <span className="amount--value">$200.00 </span>
-                  </div>
-                  <i className="fas fa-list icon dark-purple"></i>
-                </div>
-                <span className="card-detail">**** **** **** 5542</span>
-              </div>
-
-              <div className="payment--card light-green">
-                <div className="card--header">
-                  <div className="amount">
-                    <span className="title">Payment customer </span>
-                    <span className="amount--value">$350.00 </span>
-                  </div>
-                  <i className="fas fa-users icon dark-green"></i>
-                </div>
-                <span className="card-detail">**** **** **** 8896</span>
-              </div>
-
-              <div className="payment--card light-blue">
-                <div className="card--header">
-                  <div className="amount">
-                    <span className="title">Payment proceed </span>
-                    <span className="amount--value">$150.00 </span>
-                  </div>
-                  <i className="fa-solid fa-check icon dark-blue"></i>
-                </div>
-                <span className="card-detail">**** **** **** 7745</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="tabular--wrapper">
-            <h3 className="main--title">Finance data</h3>
-            <div className="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Transaction Type</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2023-05-01</td>
-                    <td>Expenses</td>
-                    <td>Office Supplies</td>
-                    <td>$250</td>
-                    <td>Office Expenses</td>
-                    <td>Pending</td>
-                    <td>
-                      <button>Edit</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2023-05-02</td>
-                    <td>Income</td>
-                    <td>Client Payment</td>
-                    <td>$500</td>
-                    <td>Sales</td>
-                    <td>Completed</td>
-                    <td>
-                      <button>Edit</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2023-05-03</td>
-                    <td>Expense</td>
-                    <td>Travel Expenses</td>
-                    <td>$250</td>
-                    <td>Travel</td>
-                    <td>Pending</td>
-                    <td>
-                      <button>Edit</button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="7">Total: $1,0000</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      </body>
-      <Footer />
-    </div>
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" sx={{ backgroundColor: "#004b00" }}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => {
+                setOpen(!open);
+              }}
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Admin
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => setMenudata("ReadManager")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <MdDomain />
+                </ListItemIcon>
+                <ListItemText primary="Trang chủ" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => setMenudata("CreateManager")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <MdCreateNewFolder />
+                </ListItemIcon>
+                <ListItemText primary="Thêm tài khoản" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          {menudata == "ReadManager" && <ReadManager />}
+          {menudata == "CreateManager" && <CreateManager />}
+        </Box>
+      </Box>
+    </>
   );
 }
-
-export default Admin;
