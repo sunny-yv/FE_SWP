@@ -184,9 +184,7 @@ function CreateCat() {
           <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
         </FormField>
         {isCreated && <p style={{ color: "green" }}>Thêm mèo thành công!</p>}
-        <Button className="btcreatecat" type="submit">
-          Thêm
-        </Button>
+        <Button type="submit">Thêm</Button>
       </Form>
     </div>
   );

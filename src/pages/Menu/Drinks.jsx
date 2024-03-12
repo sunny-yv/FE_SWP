@@ -45,33 +45,33 @@ function Drinks() {
     setSearchTerm(event.target.value);
     console.log(searchTerm);
   };
-  const imageUrls = [
-    "asset/O-long-kem-trung-nuong.png",
-    "asset/meo bobtail.jpg",
-    "asset/ca-phe-sua.jpg",
-    "asset/mèo lông ngắn.jpg",
-    "asset/meo wirehair.jpg",
-    "asset/meo bali-java.jpg",
-    "asset/meo-bengal.jpg",
-    "asset/Mèo Birman.jpg",
-    "asset/meo bombay.jpg",
-    "asset/Mèo Anh lông ngắn.jpg",
-    "asset/mèo miến điện.jpg",
-    "asset/meo chartreux.jpg",
-    "asset/Mèo Cornish Rex.jpg",
-    "asset/meo-devon-rex.jpg",
-    "asset/Mèo Ai cập.jpg",
-    "asset/Mèo Exotic.jpg",
-    "asset/Havana_Brown.jpg",
-    "asset/meo himalaya.jpg",
-    "asset/meo manx.jpg",
-    "asset/mèo munchkin.jpg",
-    "asset/meo-rung-na-uy.jpg",
-    "asset/meo-ocicat.jpg",
-    "asset/mèo peterbald.jpg",
-    "asset/Mèo Pixiebob.jpg",
-    "asset/meo Ragamuffin.jpg",
-  ];
+  // const imageUrls = [
+  //   "asset/O-long-kem-trung-nuong.png",
+  //   "asset/meo bobtail.jpg",
+  //   "asset/ca-phe-sua.jpg",
+  //   "asset/mèo lông ngắn.jpg",
+  //   "asset/meo wirehair.jpg",
+  //   "asset/meo bali-java.jpg",
+  //   "asset/meo-bengal.jpg",
+  //   "asset/Mèo Birman.jpg",
+  //   "asset/meo bombay.jpg",
+  //   "asset/Mèo Anh lông ngắn.jpg",
+  //   "asset/mèo miến điện.jpg",
+  //   "asset/meo chartreux.jpg",
+  //   "asset/Mèo Cornish Rex.jpg",
+  //   "asset/meo-devon-rex.jpg",
+  //   "asset/Mèo Ai cập.jpg",
+  //   "asset/Mèo Exotic.jpg",
+  //   "asset/Havana_Brown.jpg",
+  //   "asset/meo himalaya.jpg",
+  //   "asset/meo manx.jpg",
+  //   "asset/mèo munchkin.jpg",
+  //   "asset/meo-rung-na-uy.jpg",
+  //   "asset/meo-ocicat.jpg",
+  //   "asset/mèo peterbald.jpg",
+  //   "asset/Mèo Pixiebob.jpg",
+  //   "asset/meo Ragamuffin.jpg",
+  // ];
   return (
     <div className="menu-page">
       <Header />
@@ -97,7 +97,8 @@ function Drinks() {
                 <CardMedia
                   component="img"
                   height="300px"
-                  image={imageUrls[index]}
+                  // image={imageUrls[index]}
+                  image={card.image}
                   alt="đồ uống"
                 />
                 <CardContent>

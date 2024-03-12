@@ -29,7 +29,7 @@ function Introduction() {
           </p>
         </div>
         <div className="title-body-top-right">
-          <img src="../asset/cat2.jpg" alt="" />
+          <img src="../asset/cat1.jpg" alt="" />
         </div>
       </div>
 
@@ -78,7 +78,7 @@ function Introduction() {
           </p>
         </div>
         <div className="title-body-bottom-right">
-          <img src="../asset/cat2.jpg" alt="" />
+          <img src="../asset/cat3.jpg" alt="" />
         </div>
       </div>
       <Footer />

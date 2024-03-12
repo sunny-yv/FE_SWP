@@ -67,19 +67,22 @@ function ReadCatProduct() {
             <TableRow key={data.catProductID}>
               {/* <TableCell>{data.catID}</TableCell> */}
               <TableCell>{data.catProductName}</TableCell>
-              <TableCell>{data.catproductType}</TableCell>
+              <TableCell>{data.catProductType}</TableCell>
               <TableCell>{data.price}</TableCell>
 
               {/* <TableCell>{data.image}</TableCell> */}
 
               <TableCell>
-                <Button color="blue" onClick={() => handleEdit(data.catID)}>
+                <Button
+                  color="blue"
+                  onClick={() => handleEdit(data.catProductID)}
+                >
                   Sửa
                 </Button>
               </TableCell>
 
               <TableCell>
-                <Button color="red" onClick={() => onDelete(data.catID)}>
+                <Button color="red" onClick={() => onDelete(data.catProductID)}>
                   Xóa
                 </Button>
               </TableCell>

@@ -183,7 +183,7 @@ function ListAllMenu() {
               <CardMedia
                 component="img"
                 height="300px"
-                image="asset/trà-chanh-hong-kong.jpg"
+                image="asset/trà-chanh-hong-kong.jpg"
                 alt="green iguana"
               />
               <CardContent>

@@ -9,7 +9,9 @@ import "./style.css";
 import { Chip } from "@mui/material";
 import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+
+
 
 function Header() {
   const navigate = useNavigate();
@@ -132,7 +134,7 @@ function Header() {
           <FontAwesomeIcon icon={faSearch} />
           <input type="text" placeholder="Tìm kiếm..." />
         </div>
-        <FontAwesomeIcon icon={faShoppingCart} size="2x" color="white" />
+        <FontAwesomeIcon icon={faShoppingCart} size="2x" color="white"/>
       </div>
     </div>
   );

@@ -118,7 +118,8 @@ function UpdateCat() {
             </FormField>
             <FormField>
               <label>Mô tả</label>
-              <input
+              <textarea
+                
                 placeholder="Mô tả"
                 name="description"
                 value={catData.description}

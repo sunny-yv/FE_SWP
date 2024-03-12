@@ -30,7 +30,7 @@ function SignUp() {
         setErrorMessage("Mật khẩu và xác nhận mật khẩu không khớp!");
         return;
       }
-console.log(email, password, confirmPassword);
+      console.log(email, password, confirmPassword);
       setLoading(true);
       await axios.post(
         "https://thecoffeeshopstore.azurewebsites.net/api/Accounts/Register",
@@ -101,7 +101,7 @@ console.log(email, password, confirmPassword);
               </div>
             )}
           </div>
-          
+
           <div className="text-center">
             {errorMessage && <p className="text-danger">{errorMessage}</p>}
             <LoadingButton

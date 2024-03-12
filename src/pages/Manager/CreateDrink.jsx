@@ -83,24 +83,10 @@ function CreateDrink() {
           />
         </FormField>
 
-        <InputLabel id="demo-simple-select-label">
-          <b>Giá</b>
-        </InputLabel>
-
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={unitPrice}
-          label="UnitPrice"
-          onChange={handleChange}
-          style={{ width: "310px" }}
-        >
-          <MenuItem value={1}>25000</MenuItem>
-          <MenuItem value={2}>35000</MenuItem>
-          <MenuItem value={3}>40000</MenuItem>
-          <MenuItem value={4}>45000</MenuItem>
-          <MenuItem value={5}>50000</MenuItem>
-        </Select>
+        <FormField>
+          <label>Giá</label>
+          <input placeholder="Giá" value={unitPrice} onChange={handleChange} />
+        </FormField>
 
         <FormField>
           <label>Ảnh</label>

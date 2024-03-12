@@ -36,7 +36,8 @@ function ReadCat() {
     );
     setApiData(filteredData);
   }, [deletedIds]);
-
+  
+  
   const onDelete = async (id) => {
     try {
       await axios.delete(
