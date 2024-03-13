@@ -44,7 +44,6 @@ function Booking() {
               >
                 <button class="button">Chi nhánh 4</button>
               </Link>
-              
             </div>
           </div>
           <div className="image">

@@ -17,7 +17,7 @@ function ReadManager() {
   const navigate = useNavigate();
   const [deletedIds, setDeletedIds] = useState([]);
   const [apiData, setApiData] = useState([]);
-  
+
   const handleEdit = (coffeeID) => {
     navigate(`/updatemanager/${coffeeID}`);
   };
@@ -81,7 +81,10 @@ function ReadManager() {
                 {/* <TableCell>{data.image}</TableCell> */}
 
                 <TableCell>
-                  <Button color="blue" onClick={() => handleEdit(data.coffeeID)}>
+                  <Button
+                    color="blue"
+                    onClick={() => handleEdit(data.coffeeID)}
+                  >
                     Sửa
                   </Button>
                 </TableCell>
