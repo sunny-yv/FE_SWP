@@ -6,21 +6,15 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useUserData } from "../../contexts/auth";
 import { useAuth } from "../../contexts/auth";
 import "./style.css";
-import { Badge, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { CartState } from "../../contexts/cart";
 
 function Header() {
   const navigate = useNavigate();
   const userData = useUserData();
   const { logout } = useAuth();
-
-  const {
-    state: { cart },
-    dispatch,
-  } = CartState();
 
   const handleLogout = async () => {
     await logout();
@@ -34,27 +28,33 @@ function Header() {
       </div>
       <div className="header-center">
         <ul className="header-list">
-          <li>
-            <a href="/">TRANG CHỦ</a>
-          </li>
-          <li>
-            <a href="/introduction">GIỚI THIỆU</a>
-          </li>
-          <Dropdown>
+          <Link to="/" style={{ color: "#fff" }}>
+            TRANG CHỦ
+          </Link>
+
+          <Link
+            to="/introduction"
+            style={{ marginLeft: "15px", color: "#fff", marginRight: "15px" }}
+          >
+            GIỚI THIỆU
+          </Link>
+          <Dropdown style={{ marginLeft: "5px", marginRight: "20px" }}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               CHI NHÁNH
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="/location">Chi nhánh 1</Dropdown.Item>
-              <Dropdown.Item href="/location2">Chi nhánh 2</Dropdown.Item>
-              <Dropdown.Item href="/location3">Chi nhánh 3</Dropdown.Item>
-              <Dropdown.Item href="/location4">Chi nhánh 4</Dropdown.Item>
-              <Dropdown.Item href="/location5">Chi nhánh 5</Dropdown.Item>
+              <Dropdown.Item href="/location">Chi nhánh Bình Tân</Dropdown.Item>
+              <Dropdown.Item href="/location2">Chi nhánh Quận 1</Dropdown.Item>
+              <Dropdown.Item href="/location3">
+                Chi nhánh Tân Bình
+              </Dropdown.Item>
+              <Dropdown.Item href="/location4">Chi nhánh Quận 8</Dropdown.Item>
+              <Dropdown.Item href="/location5">Chi nhánh Quận 2</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <li>
-            <Dropdown>
+            <Dropdown style={{ marginLeft: "5px", marginRight: "20px" }}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 THỰC ĐƠN
               </Dropdown.Toggle>
@@ -71,7 +71,7 @@ function Header() {
             </Dropdown>
           </li>
           <li>
-            <Dropdown>
+            <Dropdown style={{ marginLeft: "5px", marginRight: "10px" }}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 MÈO
               </Dropdown.Toggle>
@@ -81,26 +81,31 @@ function Header() {
                   Tất cả các bé mèo của nhà Donna
                 </Dropdown.Item>
                 <Dropdown.Item href="/catshop1">
-                  Các bé mèo ở chi nhánh 1
+                  Các bé mèo ở chi nhánh Bình Tân
                 </Dropdown.Item>
                 <Dropdown.Item href="/catshop2">
-                  Các bé mèo ở chi nhánh 2
+                  Các bé mèo ở chi nhánh Quận 1
                 </Dropdown.Item>
                 <Dropdown.Item href="/catshop3">
-                  Các bé mèo ở chi nhánh 3
+                  Các bé mèo ở chi nhánh Tân Bình
                 </Dropdown.Item>
                 <Dropdown.Item href="/catshop4">
-                  Các bé mèo ở chi nhánh 4
+                  Các bé mèo ở chi nhánh Quận 8
                 </Dropdown.Item>
                 <Dropdown.Item href="/catshop5">
-                  Các bé mèo ở chi nhánh 5
+                  Các bé mèo ở chi nhánh Quận 2
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </li>
-          <li>
-            <a href="/booking">ĐẶT BÀN</a>
-          </li>
+
+          <Link
+            to="/booking"
+            style={{ marginLeft: "10px", color: "#fff", marginRight: "10px" }}
+          >
+            ĐẶT BÀN
+          </Link>
+
           <li>
             <a href="#">THẺ</a>
           </li>
@@ -138,15 +143,7 @@ function Header() {
           <FontAwesomeIcon icon={faSearch} />
           <input type="text" placeholder="Tìm kiếm..." />
         </div>
-        <Badge
-          badgeContent={cart?.length || 0}
-          color="primary"
-          onClick={() => navigate("/cart")}
-        >
-          <FontAwesomeIcon icon={faShoppingCart} size="2x" color="white" />
-        </Badge>
-        {/* 
-        <h2> {cart.length}</h2> */}
+        <FontAwesomeIcon icon={faShoppingCart} size="2x" color="white" />
       </div>
     </div>
   );

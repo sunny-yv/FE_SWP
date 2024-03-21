@@ -12,7 +12,7 @@ function Arrow(props) {
   );
 }
 
-function SimpleSlider() {
+function LocationSlider() {
   var settings = {
     dots: true,
     infinite: true,
@@ -72,4 +72,4 @@ function SimpleSlider() {
   );
 }
 
-export default SimpleSlider;
+export default LocationSlider;
