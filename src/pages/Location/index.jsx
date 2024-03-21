@@ -95,7 +95,7 @@ function index() {
           <img src="../asset/meo1.png" alt="" />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

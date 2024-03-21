@@ -1,52 +1,247 @@
-import React from "react";
-import "./style.css";
-function HomeStaff() {
+import { useState, useEffect } from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
+import { DataGrid } from "@mui/x-data-grid";
+
+import { MdDomain, MdCreateNewFolder } from "react-icons/md";
+import { useAuth, useUserData } from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
+import { requirePropFactory } from "@mui/material";
+import axios from "axios";
+import axiosInstance from "../../lib/axios";
+import { getOrders } from "../../lib/auth/service";
+
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+export default function Staff() {
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const [menudata, setMenudata] = useState("Home");
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const [listOrder, setListOrder] = useState([]);
+  const navigate = useNavigate();
+  const userData = useUserData();
+  const { loaded } = useAuth();
+
+  useEffect(() => {
+    if (loaded && (!userData || userData?.roleName !== "Staff")) {
+      navigate("/");
+    }
+  }, [loaded, navigate, userData]);
+
+  useEffect(() => {
+    getOrders().then((res) => {
+      setListOrder(res);
+      console.log(res);
+    });
+  }, []);
+
+  // const columns = [
+  //   { field: "orderID", headerName: "ID", width: 200 },
+  //   { field: "createTime", headerName: "createTime", width: 200 },
+  //   { field: "totalPrice", headerName: "totalPrice", width: 200 },
+  //   { field: "totalItem", headerName: "totalItem", width: 200 },
+  //   { field: "totalDiscount", headerName: "totalDiscount", width: 200 },
+  //   { field: "status", headerName: "status", width: 200 },
+
+  //   {
+  //     field: "Anh",
+  //     headerName: "Full name",
+
+  //     width: 160,
+  //     valueGetter: (params) => `${params.row.staff.fullName}`,
+  //   },
+  // ];
+  console.log(menudata);
   return (
-    <div class="desktop-1">
-      <div class="rectangle-5"></div>
-      <div class="rectangle-6"></div>
-      <div class="t-b-n">ĐẶT BÀN</div>
-      <div class="t-i-ch">TẠI CHỖ</div>
-      <div class="line-1"></div>
-      <div class="line-2"></div>
-      <div class="ngu-n-n">Nguồn đơn</div>
-      <div class="b-n-h-ng">Bán hàng</div>
-      <div class="nh-h-ng">Nhà hàng</div>
-      <svg
-        class="vector"
-        width="29"
-        height="37"
-        viewBox="0 0 29 37"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M5.8 0C4.1905 0 2.9 1.6465 2.9 3.7V18.5C2.9 20.5535 4.1905 22.2 5.8 22.2H23.2C24.8095 22.2 26.1 20.5535 26.1 18.5V3.7C26.1 1.6465 24.8095 0 23.2 0H5.8ZM5.8 3.7H23.2V18.5H5.8V3.7ZM2.9 24.05C1.2905 24.05 0 25.6965 0 27.75V33.3C0 35.3535 1.2905 37 2.9 37H26.1C27.7095 37 29 35.3535 29 33.3V27.75C29 25.6965 27.7095 24.05 26.1 24.05H2.9ZM8.7 27.75H26.1V33.3H8.7V27.75ZM10.15 29.1375V31.9125H15.95V29.1375H10.15ZM18.85 29.1375V31.9125H24.65V29.1375H18.85Z"
-          fill="black"
-        />
-      </svg>
-      <svg
-        class="clarity-settings-solid"
-        width="29"
-        height="37"
-        viewBox="0 0 29 37"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clip-path="url(#clip0_5_33)">
-          <path
-            d="M26.2369 16.1567L23.5383 15.1289C23.3518 14.2977 23.0952 13.4948 22.7731 12.7342L24.0942 9.57889C24.1437 9.45979 24.1619 9.32347 24.1459 9.19016C24.13 9.05686 24.0807 8.93367 24.0056 8.83889L22.0803 6.37222C22.006 6.2763 21.9094 6.21349 21.805 6.19313C21.7005 6.17276 21.5936 6.19592 21.5003 6.25917L19.0433 7.93444C18.4413 7.50346 17.8037 7.15877 17.1422 6.90667L16.3367 3.50472C16.3026 3.37935 16.2382 3.271 16.1528 3.19528C16.0674 3.11956 15.9654 3.08036 15.8614 3.08333H13.1386C13.034 3.08395 12.9323 3.12715 12.8483 3.20664C12.7642 3.28613 12.7023 3.39775 12.6714 3.52528L11.8658 6.91694C11.1988 7.1677 10.5558 7.51242 9.94861 7.94472L7.53195 6.27972C7.4386 6.21648 7.33175 6.19332 7.22727 6.21368C7.12279 6.23405 7.02624 6.29685 6.95195 6.39278L4.99445 8.82861C4.91926 8.92339 4.87004 9.04658 4.85407 9.17989C4.83811 9.31319 4.85626 9.44951 4.90584 9.56861L6.21084 12.6519C5.87255 13.4234 5.60238 14.2403 5.40528 15.0878L2.73889 16.1156C2.63894 16.1549 2.55145 16.234 2.48915 16.3412C2.42685 16.4484 2.39299 16.5782 2.3925 16.7117V20.1856C2.39299 20.319 2.42685 20.4488 2.48915 20.556C2.55145 20.6632 2.63894 20.7423 2.73889 20.7817L5.42139 21.8094C5.62064 22.6428 5.89077 23.4458 6.22695 24.2042L4.90584 27.4314C4.85626 27.5505 4.83811 27.6868 4.85407 27.8201C4.87004 27.9534 4.91926 28.0766 4.99445 28.1714L6.91972 30.6278C6.99401 30.7237 7.09057 30.7865 7.19505 30.8069C7.29953 30.8272 7.40638 30.8041 7.49972 30.7408L9.98889 29.045C10.5777 29.4504 11.1988 29.7743 11.8417 30.0111L12.6472 33.4747C12.6781 33.6022 12.7401 33.7139 12.8241 33.7934C12.9081 33.8728 13.0098 33.916 13.1144 33.9167H15.8372C15.9418 33.916 16.0436 33.8728 16.1276 33.7934C16.2116 33.7139 16.2736 33.6022 16.3044 33.4747L17.11 30.0008C17.7473 29.7628 18.363 29.4389 18.9467 29.0347L21.4519 30.7408C21.5453 30.8041 21.6521 30.8272 21.7566 30.8069C21.8611 30.7865 21.9577 30.7237 22.0319 30.6278L23.9572 28.1714C24.0324 28.0766 24.0816 27.9534 24.0976 27.8201C24.1136 27.6868 24.0954 27.5505 24.0458 27.4314L22.7086 24.2453C23.0287 23.4978 23.2853 22.7088 23.4739 21.8917L26.1886 20.8639C26.2886 20.8245 26.3761 20.7455 26.4384 20.6382C26.5007 20.531 26.5345 20.4012 26.535 20.2678V16.7631C26.5398 16.6353 26.5137 16.5087 26.4605 16.4003C26.4072 16.2919 26.3292 16.2069 26.2369 16.1567ZM14.5 24.1528C13.6237 24.1528 12.7671 23.8212 12.0385 23.2001C11.3099 22.579 10.742 21.6961 10.4067 20.6632C10.0714 19.6303 9.98362 18.4937 10.1546 17.3972C10.3255 16.3007 10.7475 15.2934 11.3671 14.5029C11.9868 13.7123 12.7762 13.174 13.6356 12.9558C14.4951 12.7377 15.3859 12.8497 16.1955 13.2775C17.0051 13.7054 17.697 14.4299 18.1839 15.3595C18.6707 16.2891 18.9306 17.382 18.9306 18.5C18.9306 19.9992 18.4638 21.437 17.6329 22.4971C16.802 23.5572 15.6751 24.1528 14.5 24.1528Z"
-            fill="black"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_5_33">
-            <rect width="29" height="37" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-    </div>
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" sx={{ backgroundColor: "#004b00" }}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => {
+                setOpen(!open);
+              }}
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Staff
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => setMenudata("ReadStaff")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <MdDomain />
+                </ListItemIcon>
+                <ListItemText primary="Đơn order trước" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => setMenudata("Menu")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <MdDomain />
+                </ListItemIcon>
+                <ListItemText primary="Đặt món" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+        </Drawer>
+        <Box component="main" sx={{ marginTop: "7rem" }}>
+          {/* {menudata == "readstaff" && <ReadStaff />}
+          {menudata == "createstaff" && <CreateStaff />} */}
+        </Box>
+        {/* <DataGrid
+          rows={listOrder || []}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+        /> */}
+      </Box>
+    </>
   );
 }
-
-export default HomeStaff;

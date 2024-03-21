@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import axios from "axios";
 
-function Location4() {
+function Location1() {
   const [coffeeShop, setCoffeeShop] = useState(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function Location4() {
       const response = await axios.get(
         "https://thecoffeeshopstore.azurewebsites.net/api/CoffeeShops"
       );
-      setCoffeeShop(response.data[4]);
+      setCoffeeShop(response.data[1]);
     } catch (error) {
       console.error("Error fetching coffee shop data:", error);
     }
@@ -53,7 +53,7 @@ function Location4() {
                   Thứ 2-Chủ nhật: 8:00 AM
                 </p>
               </div>
-              <div className="column">
+              <div className="column" style={{ marginTop: "20px" }}>
                 <h4 style={{ fontSize: "25px" }}>Giờ đóng cửa</h4>
                 <p style={{ marginTop: "-15px", fontSize: "20px" }}>
                   Thứ 2-Chủ nhật: 20:00 PM
@@ -62,10 +62,11 @@ function Location4() {
               <div className="column" style={{ marginTop: "20px" }}>
                 <h4 style={{ fontSize: "25px" }}>Địa chỉ</h4>
                 <p style={{ marginTop: "-15px", fontSize: "20px" }}>
-                  59 Châu Thị Hóa, Phường 4, Quận 8, Thành phố Hồ Chí Minh
+                  89 Đường số 3, Bình Hưng Hoà B, Bình Tân, Thành phố Hồ Chí
+                  Minh
                 </p>
               </div>
-              <div className="column">
+              <div className="column" style={{ marginTop: "20px" }}>
                 <h4 style={{ fontSize: "25px" }}>Liên hệ</h4>
                 <p style={{ marginTop: "-15px", fontSize: "20px" }}>
                   Phone: {coffeeShop.phoneNumber}
@@ -143,4 +144,4 @@ function Location4() {
   );
 }
 
-export default Location4;
+export default Location1;
