@@ -16,14 +16,21 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import CreateManager from "../../components/CreateManager";
-import ReadManager from "../../components/ReadManager";
-
+import CreateCoffeeShop from "../../components/CreateCoffeeShop";
+import ReadCoffeeShop from "../../components/ReadCoffeeShop";
+import ReadCat from "../Manager/ReadCat";
+import Collapse from "@mui/material/Collapse";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 import { MdDomain, MdCreateNewFolder } from "react-icons/md";
 import { useAuth, useUserData } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
+import MenuStaff from "./Menu";
+import TableCoffeeShop1 from "../Table/TableCoffeeShop1";
+import TableCoffeeShop2 from "../Table/TableCoffeeShop2";
+import TableCoffeeShop3 from "../Table/TableCoffeeShop3";
+import TableCoffeeShop4 from "../Table/TableCoffeeShop4";
+import TableCoffeeShop5 from "../Table/TableCoffeeShop5";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -52,7 +59,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
+
   ...theme.mixins.toolbar,
 }));
 
@@ -94,7 +101,9 @@ const Drawer = styled(MuiDrawer, {
 export default function Admin() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [menudata, setMenudata] = useState("Home");
+  const [menuData, setMenuData] = useState("Home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -103,12 +112,27 @@ export default function Admin() {
     setOpen(false);
   };
 
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+    setMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setMenuOpen(false);
+  };
+
+  const handleMenuChange = (menu) => {
+    setMenuData(menu);
+    handleMenuClose();
+  };
+
   const navigate = useNavigate();
   const userData = useUserData();
   const { loaded } = useAuth();
 
   useEffect(() => {
-    if (loaded && (!userData || userData.roleName !== "Manager")) {
+    if (loaded && (!userData || userData.roleName !== "Admin")) {
       navigate("/");
     }
   }, [loaded, navigate, userData]);
@@ -122,9 +146,7 @@ export default function Admin() {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => {
-                setOpen(!open);
-              }}
+              onClick={handleDrawerOpen}
               edge="start"
             >
               <MenuIcon />
@@ -148,58 +170,69 @@ export default function Admin() {
           <List>
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
-              onClick={() => setMenudata("ReadManager")}
+              onClick={() => setMenuData("ReadCoffeeShop")}
             >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
+              <ListItemButton>
+                <ListItemIcon>
                   <MdDomain />
                 </ListItemIcon>
                 <ListItemText primary="Trang chủ" />
               </ListItemButton>
             </ListItem>
-            <ListItem
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => setMenudata("CreateManager")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
+            <ListItem disablePadding onClick={() => setMenuData("Readcat")}>
+              <ListItemButton>
+                <ListItemIcon>
                   <MdCreateNewFolder />
                 </ListItemIcon>
-                <ListItemText primary="Thêm tài khoản" />
+                <ListItemText primary="Quản lý" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleMenuOpen}>
+                <ListItemIcon>
+                  <MdCreateNewFolder />
+                </ListItemIcon>
+                <ListItemText primary="Nhân viên" />
               </ListItemButton>
             </ListItem>
           </List>
           <Divider />
         </Drawer>
+        <Menu
+          anchorEl={anchorEl}
+          open={menuOpen}
+          onClose={handleMenuClose}
+          MenuListProps={{ onMouseLeave: handleMenuClose }}
+        >
+          <MenuItem onClick={() => handleMenuChange("MenuStaff")}>
+            Menu Staff
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop1")}>
+            Chi nhánh Bình Tân
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop2")}>
+            Chi nhánh Quận 1
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop3")}>
+            Chi nhánh Tân Bình
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop4")}>
+            Chi nhánh Quận 8
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop5")}>
+            Chi nhánh Quận 2
+          </MenuItem>
+        </Menu>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {menudata == "ReadManager" && <ReadManager />}
-          {menudata == "CreateManager" && <CreateManager />}
+          {menuData === "ReadCoffeeShop" && <ReadCoffeeShop />}
+          {menuData === "CreateCoffeeShop" && <CreateCoffeeShop />}
+          {menuData === "Readcat" && <ReadCat />}
+          {menuData === "MenuStaff" && <MenuStaff />}
+          {menuData === "TableCoffeeShop1" && <TableCoffeeShop1 />}
+          {menuData === "TableCoffeeShop2" && <TableCoffeeShop2 />}
+          {menuData === "TableCoffeeShop3" && <TableCoffeeShop3 />}
+          {menuData === "TableCoffeeShop4" && <TableCoffeeShop4 />}
+          {menuData === "TableCoffeeShop5" && <TableCoffeeShop5 />}
         </Box>
       </Box>
     </>

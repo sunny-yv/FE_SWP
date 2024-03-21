@@ -4,24 +4,47 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const tang = "tang";
 export const giam = "giam";
 
+const transformedData = (item, quantity, amount) => {
+  const price =
+    item.drinkName !== null ? item.priceDrink : item.priceCatProduct;
+  return {
+    menuID: item.menuID,
+    name: item.drinkName !== null ? item.drinkName : item.catProductName,
+    price: price,
+    image: item.drinkName !== null ? item.imageDrink : item.imageCatProduct,
+    quantity: quantity,
+    amount: amount ? amount : price,
+  };
+};
+
 const addToCart = (cart, product) => {
   const clone = [...cart];
-  const index = cart.findIndex((item) => item.drinkID === product.drinkID);
+  const index = clone.findIndex((item) => item.menuID === product.menuID);
   if (index > -1) {
-    const updatedItem = { ...cart[index], qty: +cart[index].qty + 1 };
+    const qty = +clone[index].quantity + 1;
+    const updatedItem = transformedData(
+      product,
+      +qty,
+      +clone[index].price * qty
+    );
     clone[index] = updatedItem;
-  } else clone.push({ ...product, qty: 1 });
+  } else clone.push(transformedData(product, 1));
   return clone;
 };
 const change_qty = (cart, payload) => {
-  console.log(payload);
   const clone = [...cart];
-  const index = cart.findIndex((item) => item.drinkID === payload.drinkID);
+  const index = cart.findIndex((item) => item.menuID === payload.menuID);
   if (tang === payload.event) {
-    clone[index].qty = clone[index].qty + 1;
+    const qty = clone[index].quantity + 1;
+    clone[index].quantity = qty;
+    clone[index].amount = qty * clone[index].price;
   } else {
-    if (clone[index].qty === 1) clone.splice(index, 1);
-    else clone[index].qty = clone[index].qty - 1;
+    const qty = clone[index].quantity - 1;
+    if (clone[index].quantity === 1) clone.splice(index, 1);
+    else {
+      clone[index].quantity = qty;
+      clone[index].amount = qty * clone[index].price;
+    }
   }
   return clone;
 };
@@ -36,7 +59,7 @@ export const CartReducer = (state, action) => {
     case REMOVE_FROM_CART: {
       return {
         ...state,
-        cart: state.cart.filter((c) => c.id !== action.payload.drinkID),
+        cart: [],
       };
     }
     case CHANGE_CART_QUANTITY:

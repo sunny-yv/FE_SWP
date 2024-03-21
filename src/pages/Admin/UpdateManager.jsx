@@ -48,6 +48,10 @@ function UpdateManager() {
     setCoffeeData({ ...coffeeData, status: !coffeeData.status });
   };
 
+  const handleGOBack = () => {
+    navigate("/admin");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -155,6 +159,7 @@ function UpdateManager() {
               </p>
             )}
             <Button type="submit">Cập nhật</Button>
+            <Button onClick={handleGOBack}>Quay lại</Button>
           </Form>
         </>
       )}
