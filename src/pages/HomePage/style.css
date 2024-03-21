@@ -35,10 +35,10 @@ input:focus {
 }
 .location > img {
   align-items: center;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
-  margin-top: 80px;
-  margin-left: 560px;
+  margin-top: 20px;
+  margin-left: 38%;
 }
 .location > h3 {
   align-items: center;
@@ -66,16 +66,45 @@ input:focus {
   display: flex;
   justify-content: center;
   margin-top: 80px;
+  margin-left: 100px;
 }
-.card-container {
+.card-all {
   display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+.location-all{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Mỗi dòng có 3 cột */
+  gap: 20px; /* Khoảng cách giữa các thẻ */
+  justify-content: center;
+  margin: 10px;
+}
+
+.card-product{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 40%;
-  margin: 0 1.5%;
-  margin-top: 50px;
+  width: 70%;
+  margin-top:20px ;
+  margin-left: 15%;
+  height: 300px;
+}
+.location1{
+
+  transition: 0.3s;
+  width: 450px;
+  margin-top:20px ;
+  margin-left: 10%;
+  height: 300px;
+}
+.card > img{
+  height: 200px;
+  width: 100%;
 }
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -83,7 +112,9 @@ input:focus {
 .text-card {
   padding: 10px 16px;
 }
-.card > img {
+
+
+.location1{
   width: 100%;
   height: auto;
 }
@@ -138,4 +169,23 @@ input:focus {
   padding: 35px;
   animation: scale 2s infinite;
   
+}
+.image-home-page{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-1{
+  margin-top: 3%;
+  flex-wrap: wrap;
+  width: 26%;
+  margin-left: 2%;
+  height: 600px
+  
+}
+.a{
+  text-decoration: none;
+  color: black;
+
 }
