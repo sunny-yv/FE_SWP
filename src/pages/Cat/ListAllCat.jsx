@@ -7,13 +7,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Skeleton } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./style.css";
 function ListAllCat() {
   const [searchTerm, setSearchTerm] = useState("");
   const [cardData, setCardData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (searchTerm === "") {
@@ -25,6 +26,9 @@ function ListAllCat() {
         })
         .catch(function (error) {
           console.log(error);
+        })
+        .finally(function () {
+          setLoaded(true);
         });
     } else {
       axios
@@ -37,6 +41,9 @@ function ListAllCat() {
         })
         .catch(function (error) {
           console.log(error);
+        })
+        .finally(function () {
+          setLoaded(true);
         });
     }
   }, [searchTerm]);
@@ -45,33 +52,6 @@ function ListAllCat() {
     setSearchTerm(event.target.value);
     console.log(searchTerm);
   };
-  // const imageUrls = [
-  //   "asset/meo Abyssinian.jpg",
-  //   "asset/meo bobtail.jpg",
-  //   "asset/meo long xu.jpg",
-  //   "asset/mèo lông ngắn.jpg",
-  //   "asset/meo wirehair.jpg",
-  //   "asset/meo bali-java.jpg",
-  //   "asset/meo-bengal.jpg",
-  //   "asset/Mèo Birman.jpg",
-  //   "asset/meo bombay.jpg",
-  //   "asset/Mèo Anh lông ngắn.jpg",
-  //   "asset/mèo miến điện.jpg",
-  //   "asset/meo chartreux.jpg",
-  //   "asset/Mèo Cornish Rex.jpg",
-  //   "asset/meo-devon-rex.jpg",
-  //   "asset/Mèo Ai cập.jpg",
-  //   "asset/Mèo Exotic.jpg",
-  //   "asset/Havana_Brown.jpg",
-  //   "asset/meo himalaya.jpg",
-  //   "asset/meo manx.jpg",
-  //   "asset/mèo munchkin.jpg",
-  //   "asset/meo-rung-na-uy.jpg",
-  //   "asset/meo-ocicat.jpg",
-  //   "asset/mèo peterbald.jpg",
-  //   "asset/Mèo Pixiebob.jpg",
-  //   "asset/meo Ragamuffin.jpg",
-  // ];
 
   return (
     <div className="cat-page">
@@ -91,38 +71,47 @@ function ListAllCat() {
       </div>
 
       <div className="cards">
-        {cardData.map((card, index) => (
-          <div className="card-1" key={index}>
-            <Card sx={{ maxWidth: 500, height: 550 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="300px"
-                  // image={imageUrls[index]}
-                  image={card.image}
-                  alt="mèo"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {card.catName}
-                  </Typography>
-                  <Typography gutterBottom variant="h8" component="div">
-                    {card.age} tuổi
-                  </Typography>
-                  <Typography gutterBottom variant="h8" component="div">
-                    {card.type}
-                  </Typography>
-                  <Typography gutterBottom variant="h8" component="div">
-                    Chi nhánh 1
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {card.description}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </div>
-        ))}
+        {loaded
+          ? cardData.map((card, index) => (
+              <div className="card-1" key={index}>
+                <Card sx={{ maxWidth: 500, height: 550 }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="300px"
+                      image={card.image}
+                      alt="mèo"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {card.catName}
+                      </Typography>
+                      <Typography gutterBottom variant="h8" component="div">
+                        {card.age} tuổi
+                      </Typography>
+                      <Typography gutterBottom variant="h8" component="div">
+                        {card.type}
+                      </Typography>
+                      <Typography gutterBottom variant="h8" component="div">
+                        Chi nhánh 1
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {card.description}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </div>
+            ))
+          : [...Array(12)].map((_, index) => {
+              return (
+                <div className="card-1" key={index}>
+                  <Card sx={{ maxWidth: 500, height: 550 }}>
+                    <Skeleton key={index} width={500} height={500} />;
+                  </Card>
+                </div>
+              );
+            })}
       </div>
       <Footer />
     </div>
