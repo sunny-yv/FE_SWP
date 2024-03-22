@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useAuth } from "../../contexts/auth";
 import { toast } from "react-toastify";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ function Login() {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const { login } = useAuth();
-  
+
   const handleLogin = async () => {
     try {
       setLoading(true);
@@ -22,13 +22,14 @@ function Login() {
       toast("Đăng nhập thành công", {
         type: "success",
       });
-      if (response.roleName === "Manager") {
+      if (response.roleName === "Admin") {
         navigate("/admin");
-      } else{
+      } else {
         navigate("/");
       }
-     console.log(response)
+      console.log(response);
     } catch (error) {
+      console.log(error);
       toast("Đăng nhập thất bại", {
         type: "error",
       });

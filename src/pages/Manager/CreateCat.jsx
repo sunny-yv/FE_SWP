@@ -10,7 +10,7 @@ import axios from "axios";
 import "./style.css";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-
+import Box from "@mui/material/Box";
 function CreateCat() {
   const [age, setAge] = useState("");
   const [catName, setCatName] = useState("");
@@ -42,6 +42,10 @@ function CreateCat() {
 
   const handleStatusChange = () => {
     setStatus(!status);
+  };
+
+  const handleGOBack = () => {
+    navigate("/admin");
   };
 
   const coffeeShopIds = [
@@ -91,102 +95,128 @@ function CreateCat() {
   };
 
   return (
-    <div className="manager">
-      <Form onSubmit={handleSubmit}>
-        <FormField>
-          <label>Tên</label>
-          <input
-            placeholder="Tên"
-            value={catName}
-            onChange={handleNameChange}
-          />
-        </FormField>
-
-        <InputLabel id="demo-simple-select-label">
-          <b>Tuổi</b>
-        </InputLabel>
-
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-          style={{ width: "310px" }}
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-        </Select>
-
-        <FormField>
-          <label>Mô tả</label>
-          <input
-            placeholder="Mô tả"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </FormField>
-
-        <FormField>
-          <label>Thể loại</label>
-          <input
-            placeholder="Thể loại"
-            value={type}
-            onChange={handleTypeChange}
-          />
-        </FormField>
-
-        <FormField>
-          <label>Ảnh</label>
-          <input
-            accept="image/*"
-            type="file"
-            placeholder="Last Name"
-            onChange={handleImageChange}
-          />
-        </FormField>
-
-        <InputLabel id="demo-simple-select-label">
-          <b>Chi nhánh</b>
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={coffeeID}
-          label="Age"
-          onChange={handleIDChange}
-          style={{ width: "310px" }}
-        >
-          {coffeeShopIds.map((id) => (
-            <MenuItem key={id} value={id}>
-              Chi nhánh {coffeeShopIds.indexOf(id) + 1}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={status}
-                onChange={handleStatusChange}
-                color="primary"
+    <>
+      <div className="background">
+        <div className="manager">
+          <h1>Thêm Mèo Mới</h1>
+          <p>Điền thông tin chi tiết để thêm một mèo mới vào hệ thống.</p>
+          <Form onSubmit={handleSubmit}>
+            <FormField style={{ marginBottom: "20px" }}>
+              <label>Tên</label>
+              <input
+                placeholder="Tên"
+                value={catName}
+                onChange={handleNameChange}
               />
-            }
-            label="Trạng thái"
-            labelPlacement="start"
-            style={{ marginLeft: "0px" }}
-          />
-        </FormGroup>
-        <FormField>
-          <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
-        </FormField>
-        {isCreated && <p style={{ color: "green" }}>Thêm mèo thành công!</p>}
-        <Button type="submit">Thêm</Button>
-      </Form>
-    </div>
+            </FormField>
+
+            <InputLabel id="demo-simple-select-label">
+              <b>Tuổi</b>
+            </InputLabel>
+
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Age"
+              onChange={handleChange}
+              style={{
+                width: "310px",
+                marginBottom: "20px",
+                backgroundColor: "#fff",
+              }}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+            </Select>
+
+            <FormField style={{ marginBottom: "20px" }}>
+              <label
+                style={{ color: "#333", marginBottom: "5px", fontSize: "15px" }}
+              >
+                Mô tả
+              </label>
+              <input
+                placeholder="Mô tả"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </FormField>
+
+            <FormField style={{ marginBottom: "20px" }}>
+              <label>Thể loại</label>
+              <input
+                placeholder="Thể loại"
+                value={type}
+                onChange={handleTypeChange}
+              />
+            </FormField>
+
+            <FormField style={{ marginBottom: "20px" }}>
+              <label>Ảnh</label>
+              <input
+                accept="image/*"
+                type="file"
+                placeholder="Last Name"
+                onChange={handleImageChange}
+              />
+            </FormField>
+
+            <InputLabel id="demo-simple-select-label">
+              <b>Chi nhánh</b>
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={coffeeID}
+              label="Age"
+              onChange={handleIDChange}
+              style={{ width: "310px", backgroundColor: "#fff" }}
+            >
+              {coffeeShopIds.map((id) => (
+                <MenuItem key={id} value={id}>
+                  Chi nhánh {coffeeShopIds.indexOf(id) + 1}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={status}
+                    onChange={handleStatusChange}
+                    color="primary"
+                  />
+                }
+                label="Trạng thái"
+                labelPlacement="start"
+                style={{ marginLeft: "0px", marginBottom: "20px" }}
+              />
+            </FormGroup>
+            <FormField>
+              <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
+            </FormField>
+            {isCreated && (
+              <p style={{ color: "green" }}>Thêm mèo thành công!</p>
+            )}
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "green",
+                color: "#fff",
+                marginRight: "20px",
+              }}
+            >
+              Thêm
+            </Button>
+            <Button onClick={handleGOBack}>Quay lại</Button>
+          </Form>
+        </div>
+      </div>
+    </>
   );
 }
 

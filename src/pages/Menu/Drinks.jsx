@@ -103,10 +103,10 @@ function Drinks() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                  {card.drinkName}
+                    {card.drinkName}
                   </Typography>
                   <Typography gutterBottom variant="h8" component="div">
-                  {card.unitPrice}
+                    {card.unitPrice}
                   </Typography>
                 </CardContent>
               </CardActionArea>

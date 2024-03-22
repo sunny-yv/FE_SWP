@@ -47,7 +47,9 @@ function UpdateCat() {
   const handleCheckboxChange = () => {
     setCatData({ ...catData, status: !catData.status });
   };
-
+  const handleGOBack = () => {
+    navigate("/admin");
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -119,7 +121,6 @@ function UpdateCat() {
             <FormField>
               <label>Mô tả</label>
               <textarea
-                
                 placeholder="Mô tả"
                 name="description"
                 value={catData.description}
@@ -177,6 +178,7 @@ function UpdateCat() {
               </p>
             )}
             <Button type="submit">Cập nhật</Button>
+            <Button onClick={handleGOBack}>Quay lại</Button>
           </Form>
         </>
       )}

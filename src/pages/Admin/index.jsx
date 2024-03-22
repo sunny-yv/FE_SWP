@@ -16,7 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CreateCoffeeShop from "../../components/CreateCoffeeShop";
+import CreateCoffeeShop from "../Admin/CreateCoffeeShop";
 import ReadCoffeeShop from "../../components/ReadCoffeeShop";
 import ReadCat from "../Manager/ReadCat";
 import Collapse from "@mui/material/Collapse";
