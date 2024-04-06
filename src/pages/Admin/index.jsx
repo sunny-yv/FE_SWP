@@ -16,7 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CreateCoffeeShop from "../Admin/CreateCoffeeShop";
+import CreateCoffeeShop from "../../components/CreateCoffeeShop";
 import ReadCoffeeShop from "../../components/ReadCoffeeShop";
 import ReadCat from "../Manager/ReadCat";
 import Collapse from "@mui/material/Collapse";
@@ -25,14 +25,18 @@ import Menu from "@mui/material/Menu";
 import { MdDomain, MdCreateNewFolder } from "react-icons/md";
 import { useAuth, useUserData } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
-import MenuStaff from "../HomeStaff/Menu";
+import { FaHome } from "react-icons/fa";
 import TableCoffeeShop1 from "../Table/TableCoffeeShop1";
 import TableCoffeeShop2 from "../Table/TableCoffeeShop2";
 import TableCoffeeShop3 from "../Table/TableCoffeeShop3";
 import TableCoffeeShop4 from "../Table/TableCoffeeShop4";
 import TableCoffeeShop5 from "../Table/TableCoffeeShop5";
+import Dashboard from "../Dashboard/Dashboard";
+import { toast } from "react-toastify";
+import { MdDashboard } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
-
+import ReadStaff from "./ReadStaff";
+import { RxAvatar } from "react-icons/rx";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -104,8 +108,8 @@ export default function Admin() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [menuData, setMenuData] = useState("Home");
-  const [menuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isPay, setIsPay] = useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -114,34 +118,68 @@ export default function Admin() {
     setOpen(false);
   };
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-    setMenuOpen(true);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setMenuOpen(false);
-  };
-
-  const handleMenuChange = (menu) => {
-    setMenuData(menu);
-    handleMenuClose();
-  };
-
   const navigate = useNavigate();
   const userData = useUserData();
   const { loaded } = useAuth();
+  const getMessage = () => {
+    // Lấy URL hiện tại
+    var currentURL = window.location.href;
 
+    var urlParts = currentURL.split("?");
+
+    if (urlParts.length > 1) {
+      var queryString = urlParts[1];
+
+      var queryParams = queryString.split("&");
+
+      for (var i = 0; i < queryParams.length; i++) {
+        var param = queryParams[i].split("=");
+        if (param[0] === "message") {
+          var messageValue = decodeURIComponent(param[1]);
+          if (messageValue === "true") {
+            localStorage.removeItem("cart");
+            toast.success("Thanh toán thành công");
+            setIsPay(true);
+            setTimeout(() => {
+              navigate("/admin");
+              window.location.reload();
+              setMenuData("MenuStaff");
+            }, 3000);
+            return true;
+          } else {
+            toast.error("Thanh toán thất bại");
+            setIsPay(false);
+            setTimeout(() => {
+              navigate("/admin");
+              window.location.reload();
+              setMenuData("MenuStaff");
+            }, 3000);
+            return false;
+          }
+        }
+      }
+    } else {
+      setIsPay(null);
+      setTimeout(() => {
+        navigate("/admin");
+      }, 3000);
+      return null;
+    }
+  };
   useEffect(() => {
     if (loaded && (!userData || userData.roleName !== "Admin")) {
       navigate("/");
     }
   }, [loaded, navigate, userData]);
+
   const handleGOBack = () => {
     navigate("/");
   };
-
+  useEffect(() => {
+    if (getMessage()) {
+      setMenuData("MenuStaff");
+    }
+  }, []);
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -175,27 +213,32 @@ export default function Admin() {
           <List>
             <ListItem
               disablePadding
+              onClick={() => setMenuData("ReadCDashboard")}
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  <MdDashboard />
+                </ListItemIcon>
+                <ListItemText primary="Thống kê" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem
+              disablePadding
               onClick={() => setMenuData("ReadCoffeeShop")}
             >
               <ListItemButton>
                 <ListItemIcon>
-                  <MdDomain />
+                  <FaHome />
                 </ListItemIcon>
                 <ListItemText primary="Trang chủ" />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding onClick={() => setMenuData("Readcat")}>
+
+            <ListItem disablePadding onClick={() => setMenuData("ReadStaff")}>
               <ListItemButton>
                 <ListItemIcon>
-                  <MdCreateNewFolder />
-                </ListItemIcon>
-                <ListItemText primary="Quản lý" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleMenuOpen}>
-                <ListItemIcon>
-                  <MdCreateNewFolder />
+                  <RxAvatar />
                 </ListItemIcon>
                 <ListItemText primary="Nhân viên" />
               </ListItemButton>
@@ -212,41 +255,12 @@ export default function Admin() {
           </List>
           <Divider />
         </Drawer>
-        <Menu
-          anchorEl={anchorEl}
-          open={menuOpen}
-          onClose={handleMenuClose}
-          MenuListProps={{ onMouseLeave: handleMenuClose }}
-        >
-          <MenuItem onClick={() => handleMenuChange("MenuStaff")}>
-            Menu Staff
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop1")}>
-            Chi nhánh Bình Tân
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop2")}>
-            Chi nhánh Quận 1
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop3")}>
-            Chi nhánh Tân Bình
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop4")}>
-            Chi nhánh Quận 8
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuChange("TableCoffeeShop5")}>
-            Chi nhánh Quận 2
-          </MenuItem>
-        </Menu>
+
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {menuData === "ReadCoffeeShop" && <ReadCoffeeShop />}
           {menuData === "CreateCoffeeShop" && <CreateCoffeeShop />}
-          {menuData === "Readcat" && <ReadCat />}
-          {menuData === "MenuStaff" && <MenuStaff />}
-          {menuData === "TableCoffeeShop1" && <TableCoffeeShop1 />}
-          {menuData === "TableCoffeeShop2" && <TableCoffeeShop2 />}
-          {menuData === "TableCoffeeShop3" && <TableCoffeeShop3 />}
-          {menuData === "TableCoffeeShop4" && <TableCoffeeShop4 />}
-          {menuData === "TableCoffeeShop5" && <TableCoffeeShop5 />}
+          {menuData === "ReadCDashboard" && <Dashboard />}
+          {menuData == "ReadStaff" && <ReadStaff />}
         </Box>
       </Box>
     </>
