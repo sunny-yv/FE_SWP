@@ -9,7 +9,7 @@ Dự án được thực hiện bằng ngôn ngữ C# và dùng framework Reactj
 ### Screen-shots
 
 Guest
-![example](asset/trangchu1.png)
+![example](trangchu1.png)
 
 #### Connect me via: yenvy.sunny@gmail.com
 
