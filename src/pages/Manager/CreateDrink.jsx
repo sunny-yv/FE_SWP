@@ -64,61 +64,85 @@ function CreateDrink() {
       setIsCreated(true);
       setTimeout(() => {
         setIsCreated(false);
-        navigate("/readDrink");
+        navigate("/manager");
       }, 1000);
     } catch (error) {
       console.error("Error sending data:", error);
     }
   };
-
+  const handleGOBack = () => {
+    navigate("/manager");
+  };
   return (
-    <div className="manager">
-      <Form onSubmit={handleSubmit}>
-        <FormField>
-          <label>Tên</label>
-          <input
-            placeholder="Tên"
-            value={drinkName}
-            onChange={handleNameChange}
-          />
-        </FormField>
-
-        <FormField>
-          <label>Giá</label>
-          <input placeholder="Giá" value={unitPrice} onChange={handleChange} />
-        </FormField>
-
-        <FormField>
-          <label>Ảnh</label>
-          <input
-            accept="image/*"
-            type="file"
-            placeholder="Last Name"
-            onChange={handleImageChange}
-          />
-        </FormField>
-
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={status}
-                onChange={handleStatusChange}
-                color="primary"
+    <>
+      <div className="background">
+        <div className="manager">
+          <h1>Thêm Đồ Uống Mới</h1>
+          <p>Điền thông tin chi tiết để thêm một đồ uống mới vào hệ thống.</p>
+          <Form onSubmit={handleSubmit}>
+            <FormField>
+              <label>Tên</label>
+              <input
+                placeholder="Tên"
+                value={drinkName}
+                onChange={handleNameChange}
               />
-            }
-            label="Trạng thái"
-            labelPlacement="start"
-            style={{ marginLeft: "0px" }}
-          />
-        </FormGroup>
-        <FormField>
-          <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
-        </FormField>
-        {isCreated && <p style={{ color: "green" }}>Thêm món thành công!</p>}
-        <Button type="submit">Thêm</Button>
-      </Form>
-    </div>
+            </FormField>
+
+            <FormField>
+              <label>Giá</label>
+              <input
+                placeholder="Giá"
+                value={unitPrice}
+                onChange={handleChange}
+              />
+            </FormField>
+
+            <FormField>
+              <label>Ảnh</label>
+              <input
+                accept="image/*"
+                type="file"
+                placeholder="Last Name"
+                onChange={handleImageChange}
+              />
+            </FormField>
+
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={status}
+                    onChange={handleStatusChange}
+                    color="primary"
+                  />
+                }
+                label="Trạng thái"
+                labelPlacement="start"
+                style={{ marginLeft: "0px" }}
+              />
+            </FormGroup>
+            <FormField>
+              <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
+            </FormField>
+            {isCreated && (
+              <p style={{ color: "green" }}>Thêm món thành công!</p>
+            )}
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "green",
+                color: "#fff",
+                marginRight: "20px",
+              }}
+            >
+              Thêm
+            </Button>
+            <Button onClick={handleGOBack}>Quay lại</Button>
+          </Form>
+        </div>
+      </div>
+    </>
   );
 }
 

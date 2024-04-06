@@ -35,7 +35,9 @@ function CatShop1() {
       <Header />
 
       <div className="cat-text-1">
-        <h1>Các Boss tại chi nhánh 1 của Donna</h1>
+        <h1 style={{ marginTop: "50px" }}>
+          Các Boss tại chi nhánh Bình Tân của Donna
+        </h1>
       </div>
       <div className="cards">
         {loaded

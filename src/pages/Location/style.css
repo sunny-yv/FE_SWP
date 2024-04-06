@@ -270,14 +270,15 @@
 }
 
 .img-location{
-  display: flex;
-  flex-direction: row;
+  
+  
   max-width: 100%;
   height: auto;
  
 }
 .img-location > img {
-  width: 23.5%;
-  margin: 11px;
+  width: 60%;
+  margin: 20px;
 padding: 10px;
+margin-left: 7%;
 }

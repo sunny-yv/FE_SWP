@@ -18,25 +18,25 @@ import { Link } from "react-router-dom";
 import { WidthFullTwoTone } from "@mui/icons-material";
 
 function HomePage() {
-  const [cardData, setCardData] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+  // const [cardData, setCardData] = useState([]);
+  // const [loaded, setLoaded] = useState(false);
+  // const coffeeID = "f9d87ddc-c7ea-4178-ba3b-d30efa6f426c";
 
-  useEffect(() => {
-    const fetchCats = async () => {
-      try {
-        const response = await axios.get(
-          `https://thecoffeeshopstore.azurewebsites.net/api/Cats`
-        );
-        setCardData(response.data);
-        setLoaded(true);
-      } catch (error) {
-        console.error("Error fetching cats:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCats = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://thecoffeeshopstore.azurewebsites.net/api/Cats/searchbycoffeeid?id=${coffeeID}`
+  //       );
+  //       setCardData(response.data);
+  //       setLoaded(true);
+  //     } catch (error) {
+  //       console.error("Error fetching cats:", error);
+  //     }
+  //   };
 
-    fetchCats();
-  }, []);
-
+  //   fetchCats();
+  // }, [coffeeID]);
   return (
     <div className="home-page">
       <Header />
@@ -164,37 +164,22 @@ function HomePage() {
             <Link to="/allcat">HÌNH ẢNH CÁC BOSS TẠI CÁC CHI NHÁNH</Link>
           </div>
           <div className="image-home-page">
-            {loaded
-              ? cardData.map((card, index) => (
-                  <div className="card-1" key={index}>
-                    <Card sx={{ maxWidth: 450, height: 450 }}>
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="270px"
-                          image={card.image}
-                          alt="mèo"
-                          margin="10px"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h6" component="div">
-                            {card.catName}
-                          </Typography>
-                          <Typography gutterBottom variant="h7" component="div">
-                            Tuổi:{card.age} tuổi
-                          </Typography>
-                          <Typography gutterBottom variant="h7" component="div">
-                            Chủng loại:{card.type}
-                          </Typography>
-                          <Typography variant="h7" color="text.secondary">
-                            {card.description}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </div>
-                ))
-              : null}
+            <img src="../asset/cat15.jpg" alt="" />
+
+            <img src="../asset/cat2.jpg" alt="" />
+
+            <img src="../asset/cat3.jpg" alt="" />
+
+            <img src="../asset/cat13.jpg" alt="" />
+          </div>
+          <div className="image-home-page">
+            <img src="../asset/cat6.jpg" alt="" />
+
+            <img src="../asset/cat8.jpg" alt="" />
+
+            <img src="../asset/cat11.jpg" alt="" />
+
+            <img src="../asset/cat12.jpg" alt="" />
           </div>
         </div>
       </div>

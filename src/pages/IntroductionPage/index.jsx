@@ -10,13 +10,13 @@ function Introduction() {
       <div className="body-top">
         <div className="title-body-top-left">
           <h1>VỀ CHÚNG TÔI</h1>
-          <p>
+          <p style={{ fontSize: "25px" }}>
             Donna Coffee - điểm đến thú vị tại TPHCM không chỉ dành cho những ai
             yêu thích cafe mèo, mà còn cho những người muốn trải nghiệm không
             gian độc đáo và ấm cúng của quán.
           </p>
           <br />
-          <p>
+          <p style={{ fontSize: "25px" }}>
             Chúng tôi hiểu rằng bạn là một người độc đáo và sành điệu, vì vậy
             chúng tôi mang đến cho bạn một không gian thư giãn và thú vị tại
             cafe mèo của chúng tôi. Tại đây, bạn có thể thưởng thức những ly cà
@@ -24,7 +24,7 @@ function Introduction() {
             nghiệm độc đáo và thú vị.
           </p>
           <br />
-          <p>
+          <p style={{ fontSize: "25px" }}>
             Hãy ghé thăm Donna Coffee tại TPHCM để tận hưởng không gian ấm áp và
             thư giãn cùng với những chú mèo đáng yêu nhất!
           </p>
@@ -40,13 +40,13 @@ function Introduction() {
         </div>
         <div className="title-body-mid-right">
           <h1>TẦM NHÌN VÀ SỨ MỆNH</h1>
-          <p>
+          <p style={{ fontSize: "25px" }}>
             Tầm nhìn của cafe mèo Donna Coffee tại TPHCM là tạo ra một không
             gian độc đáo và thân thiện, nơi mọi người có thể tận hưởng cà phê
             ngon và tương tác với những chú mèo đáng yêu.
           </p>
           <br />
-          <p>
+          <p style={{ fontSize: "25px" }}>
             Sứ mệnh của chúng tôi là mang lại niềm vui và sự thoải mái cho khách
             hàng thông qua trải nghiệm độc đáo này, đồng thời cũng tạo điều kiện
             cho các chú mèo tìm được mái nhà yêu thương và ấm áp.

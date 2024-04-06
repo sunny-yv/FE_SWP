@@ -14,13 +14,17 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  IconButton,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import axios from "axios";
 import { useAuth, useUserData } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import "./style.css";
+import Box from "@mui/material/Box";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 const App = () => {
   const [tables, setTables] = useState([]);
   const [selectedTable, setSelectedTable] = useState({});
@@ -53,13 +57,26 @@ const App = () => {
   };
 
   const handleTableClick = (table) => {
-    if (userData.roleName === "Staff" || userData.roleName === "Manager") {
+    if (userData && userData.roleName === "Staff") {
       setSelectedTable(table);
       setChangeStatusDialogOpen(true);
+    } else if (
+      userData &&
+      (userData.roleName === "Admin" || userData.roleName === "Manager")
+    ) {
+      // Không cho phép cập nhật bàn cho Admin và Manager
+      setSnackbarSeverity("error");
+      setSnackbarMessage("Bạn không có quyền cập nhật trạng thái của bàn.");
+      setSnackbarOpen(true);
     } else {
       if (table.status === "Trống") {
         setSelectedTable(table);
         setConfirmDialogOpen(true);
+      } else {
+        // Chỉ cho phép đặt bàn khi trạng thái là "Trống" cho các vai trò khác
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Bạn chỉ có thể đặt bàn khi trạng thái là 'Trống'.");
+        setSnackbarOpen(true);
       }
     }
   };
@@ -72,13 +89,7 @@ const App = () => {
         confirmBooking(selectedTable.tableID);
         console.log(selectedTable.tableID);
         await fetchTables();
-        // setTables(prevTables =>
-        //   prevTables.map(table =>
-        //     table.tableID === selectedTable.tableID
-        //       ? { ...table, status: 'Yêu cầu đặt' }
-        //       : table
-        //   )
-        // );
+
         setSnackbarSeverity("success");
         setSnackbarMessage("Đặt hàng thành công!");
         setSnackbarOpen(true);
@@ -147,136 +158,154 @@ const App = () => {
       setSnackbarOpen(true);
     }
   };
+  const handleGOBack = () => {
+    navigate("/booking");
+  };
 
   return (
     <div className="table-booking">
-      <Container maxWidth="lg">
-        <Typography variant="h3" component="h1" align="center" gutterBottom>
-          Danh sách bàn
-        </Typography>
-        <Grid container spacing={3}>
-          {tables.map((table) => (
-            <Grid item xs={12} sm={6} md={4} key={table.tableID}>
-              <Paper
-                elevation={3}
-                style={{
-                  padding: 20,
-                  backgroundColor:
-                    table.status === "Trống"
-                      ? "green"
-                      : table.status === "Đã đặt"
-                      ? "yellow"
-                      : "red",
-                  cursor:
-                    userData.roleName === "Staff" ||
-                    userData.roleName === "Manager" ||
-                    table.status === "Trống"
-                      ? "pointer"
-                      : "not-allowed",
-                  opacity:
-                    userData.roleName === "Staff" ||
-                    userData.roleName === "Manager"
-                      ? 1
-                      : table.status === "Trống"
-                      ? 1
-                      : 0.5,
-                }}
-                onClick={() => {
-                  if (
-                    userData.roleName === "Staff" ||
-                    userData.roleName === "Manager" ||
-                    table.status === "Trống"
-                  ) {
-                    handleTableClick(table);
-                  }
-                }}
-              >
-                <Typography variant="body1" gutterBottom>
-                  Trạng thái: {table.status}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Thể loại: {table.type}
-                </Typography>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-
-        <Dialog
-          open={confirmDialogOpen}
-          onClose={() => setConfirmDialogOpen(false)}
-        >
-          <DialogTitle>Xác nhận đặt hàng</DialogTitle>
-          <DialogContent>
-            <Typography variant="body1">
-              Bạn có chắc chắn muốn đặt bàn này?
-            </Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => handleConfirmDialogClose(false)}
-              color="primary"
-            >
-              Hủy
-            </Button>
-            <Button
-              onClick={() => handleConfirmDialogClose(true)}
-              color="primary"
-            >
-              Xác nhận
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        <Dialog
-          open={changeStatusDialogOpen}
-          onClose={() => setChangeStatusDialogOpen(false)}
-        >
-          <DialogTitle>Chọn trạng thái mới</DialogTitle>
-          <DialogContent>
-            <FormControl fullWidth>
-              <InputLabel id="status-select-label">Trạng thái</InputLabel>
-              <Select
-                labelId="status-select-label"
-                id="status-select"
-                value={selectedStatus}
-                onChange={handleChangeStatus}
-                fullWidth
-              >
-                <MenuItem value={"Trống"}>Trống</MenuItem>
-                <MenuItem value={"Đã đặt"}>Đã đặt</MenuItem>
-                <MenuItem value={"Yêu cầu đặt"}>Yêu cầu đặt</MenuItem>
-              </Select>
-            </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => handleUpdateStatus()} color="primary">
-              Cập nhật
-            </Button>
-            <Button
-              onClick={() => setChangeStatusDialogOpen(false)}
-              color="primary"
-            >
-              Hủy
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleCloseSnackbar}
-        >
-          <MuiAlert
-            elevation={6}
-            variant="filled"
-            onClose={handleCloseSnackbar}
-            severity={snackbarSeverity}
+      <Header />
+      <>
+        <Box height={250} />
+        <Container maxWidth="lg">
+          <IconButton
+            onClick={handleGOBack}
+            style={{ position: "absolute", top: 100, left: 20 }}
           >
-            {snackbarMessage}
-          </MuiAlert>
-        </Snackbar>
-      </Container>
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h3" component="h1" align="center" gutterBottom>
+            Danh sách bàn
+          </Typography>
+          <Grid container spacing={3}>
+            {tables.map((table) => (
+              <Grid item xs={12} sm={6} md={4} key={table.tableID}>
+                <Paper
+                  elevation={3}
+                  style={{
+                    padding: 20,
+                    backgroundColor:
+                      table.status === "Trống"
+                        ? "green"
+                        : table.status === "Đã đặt"
+                        ? "yellow"
+                        : "red",
+                    cursor:
+                      userData.roleName === "Staff" ||
+                      userData.roleName === "Manager" ||
+                      userData.roleName === "Admin" ||
+                      table.status === "Trống"
+                        ? "pointer"
+                        : "not-allowed",
+                    opacity:
+                      userData.roleName === "Staff" ||
+                      userData.roleName === "Manager" ||
+                      userData.roleName === "Admin"
+                        ? 1
+                        : table.status === "Trống"
+                        ? 1
+                        : 0.5,
+                  }}
+                  onClick={() => {
+                    if (
+                      userData.roleName === "Staff" ||
+                      userData.roleName === "Admin" ||
+                      userData.roleName === "Manager" ||
+                      table.status === "Trống"
+                    ) {
+                      handleTableClick(table);
+                    }
+                  }}
+                >
+                  <Typography variant="body1" gutterBottom>
+                    Trạng thái: {table.status}
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    Thể loại: {table.type}
+                  </Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+          <Dialog
+            open={confirmDialogOpen}
+            onClose={() => setConfirmDialogOpen(false)}
+          >
+            <DialogTitle>Xác nhận đặt hàng</DialogTitle>
+            <DialogContent>
+              <Typography variant="body1">
+                Bạn có chắc chắn muốn đặt bàn này?
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => handleConfirmDialogClose(false)}
+                color="primary"
+              >
+                Hủy
+              </Button>
+              <Button
+                onClick={() => handleConfirmDialogClose(true)}
+                color="primary"
+              >
+                Xác nhận
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Dialog
+            open={changeStatusDialogOpen}
+            onClose={() => setChangeStatusDialogOpen(false)}
+          >
+            <DialogTitle>Chọn trạng thái mới</DialogTitle>
+            <DialogContent>
+              <FormControl fullWidth>
+                <InputLabel id="status-select-label">Trạng thái</InputLabel>
+                <Select
+                  labelId="status-select-label"
+                  id="status-select"
+                  value={selectedStatus}
+                  onChange={handleChangeStatus}
+                  fullWidth
+                >
+                  <MenuItem value={"Trống"}>Trống</MenuItem>
+                  <MenuItem value={"Đã đặt"}>Đã đặt</MenuItem>
+                  <MenuItem value={"Yêu cầu đặt"}>Yêu cầu đặt</MenuItem>
+                </Select>
+              </FormControl>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => handleUpdateStatus()} color="primary">
+                Cập nhật
+              </Button>
+              <Button
+                onClick={() => setChangeStatusDialogOpen(false)}
+                color="primary"
+              >
+                Hủy
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+          >
+            <MuiAlert
+              elevation={6}
+              variant="filled"
+              onClose={handleCloseSnackbar}
+              severity={snackbarSeverity}
+            >
+              {snackbarMessage}
+            </MuiAlert>
+          </Snackbar>
+        </Container>
+      </>
+      <div style={{ marginTop: "150px" }}>
+        <Footer />
+      </div>
     </div>
   );
 };

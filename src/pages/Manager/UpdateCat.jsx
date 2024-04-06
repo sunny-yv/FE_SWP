@@ -48,7 +48,7 @@ function UpdateCat() {
     setCatData({ ...catData, status: !catData.status });
   };
   const handleGOBack = () => {
-    navigate("/admin");
+    navigate("/manager");
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -78,14 +78,14 @@ function UpdateCat() {
         setIsUpdated(true);
         setTimeout(() => {
           setIsUpdated(false);
-          navigate("/readcat");
+          navigate("/manager");
         }, 1000);
       } else {
         console.log("Cat data has not changed");
         setIsUpdated(true);
         setTimeout(() => {
           setIsUpdated(false);
-          navigate("/readcat");
+          navigate("/manager");
         }, 1000);
       }
     } catch (error) {
@@ -94,95 +94,110 @@ function UpdateCat() {
   };
 
   return (
-    <div className="manager">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <Form onSubmit={handleSubmit}>
-            <FormField>
-              <label>Tên</label>
-              <input
-                placeholder="Tên"
-                name="catName"
-                value={catData.catName}
-                onChange={handleInputChange}
-              />
-            </FormField>
-            <FormField>
-              <label>Tuổi</label>
-              <input
-                placeholder="Tuổi"
-                name="age"
-                value={catData.age}
-                onChange={handleInputChange}
-              />
-            </FormField>
-            <FormField>
-              <label>Mô tả</label>
-              <textarea
-                placeholder="Mô tả"
-                name="description"
-                value={catData.description}
-                onChange={handleInputChange}
-              />
-            </FormField>
-            <FormField>
-              <label>Thể loại</label>
-              <input
-                placeholder="Thể loại"
-                name="type"
-                value={catData.type}
-                onChange={handleInputChange}
-              />
-            </FormField>
-            <FormField>
-              <label>Ảnh</label>
-              <input
-                accept="image/*"
-                type="file"
-                onChange={(event) =>
-                  setCatData({ ...catData, image: event.target.files[0] })
-                }
-              />
-            </FormField>
-            <FormField>
-              <label>Chi nhánh</label>
-              <input
-                placeholder="Chi nhánh"
-                name="coffeeID"
-                value={catData.coffeeID}
-                onChange={handleInputChange}
-              />
-            </FormField>
-            <FormField>
-              <Checkbox
-                checked={catData.status}
-                onChange={handleCheckboxChange}
-                label="Trạng thái"
-              />
-            </FormField>
-            {isUpdated && (
-              <p
-                style={{
-                  color: "green",
-                  fontSize: "20px",
-                  display: "flex",
-                  justifyContent: "center",
-                  fontWeight: "30px",
-                }}
-              >
-                {JSON.stringify(originalCatData) === JSON.stringify(catData)
-                  ? "Không có sự thay đổi"
-                  : "Sửa đổi đã được lưu thành công!"}
-              </p>
-            )}
-            <Button type="submit">Cập nhật</Button>
-            <Button onClick={handleGOBack}>Quay lại</Button>
-          </Form>
-        </>
-      )}
-    </div>
+    <>
+      <div className="background">
+        <div className="manager">
+          <h1>Chỉnh Sửa Mèo</h1>
+          <p>Điền thông tin chi tiết để chỉnh sửa mèo trên hệ thống.</p>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              <Form onSubmit={handleSubmit}>
+                <FormField>
+                  <label>Tên</label>
+                  <input
+                    placeholder="Tên"
+                    name="catName"
+                    value={catData.catName}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <label>Tuổi</label>
+                  <input
+                    placeholder="Tuổi"
+                    name="age"
+                    value={catData.age}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <label>Mô tả</label>
+                  <textarea
+                    placeholder="Mô tả"
+                    name="description"
+                    value={catData.description}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <label>Thể loại</label>
+                  <input
+                    placeholder="Thể loại"
+                    name="type"
+                    value={catData.type}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <label>Ảnh</label>
+                  <input
+                    accept="image/*"
+                    type="file"
+                    onChange={(event) =>
+                      setCatData({ ...catData, image: event.target.files[0] })
+                    }
+                  />
+                </FormField>
+                <FormField>
+                  <label>Chi nhánh</label>
+                  <input
+                    placeholder="Chi nhánh"
+                    name="coffeeID"
+                    value={catData.coffeeID}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <Checkbox
+                    checked={catData.status}
+                    onChange={handleCheckboxChange}
+                    label="Trạng thái"
+                  />
+                </FormField>
+                {isUpdated && (
+                  <p
+                    style={{
+                      color: "green",
+                      fontSize: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                      fontWeight: "30px",
+                    }}
+                  >
+                    {JSON.stringify(originalCatData) === JSON.stringify(catData)
+                      ? "Không có sự thay đổi"
+                      : "Sửa đổi đã được lưu thành công!"}
+                  </p>
+                )}
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "green",
+                    color: "#fff",
+                    marginRight: "20px",
+                  }}
+                >
+                  Cập nhật
+                </Button>
+                <Button onClick={handleGOBack}>Quay lại</Button>
+              </Form>
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 

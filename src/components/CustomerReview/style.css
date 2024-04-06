@@ -1,13 +1,13 @@
 
 .sticky-slider {
-    position: relative;
-    left: 10;
-    display: block;
-    top: 10;
-    margin: 20px;
-    width: 90%;
-    
-  }
-  .comment{
-    margin: 5%;
-  }
+  position: relative;
+  left: 10;
+  display: block;
+  top: 10;
+  margin: 20px;
+  width: 90%;
+  
+}
+.comment{
+  margin: 5%;
+}

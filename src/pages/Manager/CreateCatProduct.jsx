@@ -41,6 +41,10 @@ function CreateCatProduct() {
     setStatus(!status);
   };
 
+  const handleGOBack = () => {
+    navigate("/manager");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -70,7 +74,7 @@ function CreateCatProduct() {
       setIsCreated(true);
       setTimeout(() => {
         setIsCreated(false);
-        navigate("/readcatproduct");
+        navigate("/manager");
       }, 1000);
     } catch (error) {
       console.error("Error sending data:", error);
@@ -78,64 +82,80 @@ function CreateCatProduct() {
   };
 
   return (
-    <div className="manager">
-      <Form onSubmit={handleSubmit}>
-        <FormField>
-          <label>Tên</label>
-          <input
-            placeholder="Tên"
-            value={catProductName}
-            onChange={handleNameChange}
-          />
-        </FormField>
-
-        <FormField>
-          <label>Thể loại</label>
-          <input
-            placeholder="Thể loại"
-            value={catProductType}
-            onChange={handleTypeChange}
-          />
-        </FormField>
-
-        <FormField>
-          <label>Giá</label>
-          <input placeholder="Giá" value={price} onChange={handleChange} />
-        </FormField>
-
-        <FormField>
-          <label>Ảnh</label>
-          <input
-            accept="image/*"
-            type="file"
-            placeholder="Last Name"
-            onChange={handleImageChange}
-          />
-        </FormField>
-
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={status}
-                onChange={handleStatusChange}
-                color="primary"
+    <>
+      <div className="background">
+        <div className="manager">
+          <h1>Thêm Sản Phẩm Mới</h1>
+          <p>Điền thông tin chi tiết để thêm một sản phẩm mới vào hệ thống.</p>
+          <Form onSubmit={handleSubmit}>
+            <FormField>
+              <label>Tên</label>
+              <input
+                placeholder="Tên"
+                value={catProductName}
+                onChange={handleNameChange}
               />
-            }
-            label="Trạng thái"
-            labelPlacement="start"
-            style={{ marginLeft: "0px" }}
-          />
-        </FormGroup>
-        <FormField>
-          <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
-        </FormField>
-        {isCreated && (
-          <p style={{ color: "green" }}>Thêm sản phẩm thành công!</p>
-        )}
-        <Button type="submit">Thêm</Button>
-      </Form>
-    </div>
+            </FormField>
+
+            <FormField>
+              <label>Thể loại</label>
+              <input
+                placeholder="Thể loại"
+                value={catProductType}
+                onChange={handleTypeChange}
+              />
+            </FormField>
+
+            <FormField>
+              <label>Giá</label>
+              <input placeholder="Giá" value={price} onChange={handleChange} />
+            </FormField>
+
+            <FormField>
+              <label>Ảnh</label>
+              <input
+                accept="image/*"
+                type="file"
+                placeholder="Last Name"
+                onChange={handleImageChange}
+              />
+            </FormField>
+
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={status}
+                    onChange={handleStatusChange}
+                    color="primary"
+                  />
+                }
+                label="Trạng thái"
+                labelPlacement="start"
+                style={{ marginLeft: "0px" }}
+              />
+            </FormGroup>
+            <FormField>
+              <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
+            </FormField>
+            {isCreated && (
+              <p style={{ color: "green" }}>Thêm sản phẩm thành công!</p>
+            )}
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "green",
+                color: "#fff",
+                marginRight: "20px",
+              }}
+            >
+              Thêm
+            </Button>
+            <Button onClick={handleGOBack}>Quay lại</Button>
+          </Form>
+        </div>
+      </div>
+    </>
   );
 }
 

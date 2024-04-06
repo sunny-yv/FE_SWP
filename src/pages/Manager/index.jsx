@@ -18,12 +18,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import CreateCoffeeShop from "../../components/CreateCoffeeShop";
-import ReadCoffeeShop from "../../components/ReadCoffeeShop";
-
+import { FaCat } from "react-icons/fa";
+import ReadCat from "../Manager/ReadCat";
 import { MdDomain, MdCreateNewFolder } from "react-icons/md";
 import { useAuth, useUserData } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
+import ReadCatProduct from "./ReadCatProduct";
+import ReadDrink from "./ReadDrink";
+import ReadStaff from "./ReadStaff";
+import { BiSolidDrink } from "react-icons/bi";
+import { BiSolidBaguette } from "react-icons/bi";
+import { RxAvatar } from "react-icons/rx";
+import { RiArrowGoBackFill } from "react-icons/ri";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -94,7 +100,7 @@ const Drawer = styled(MuiDrawer, {
 export default function Manager() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [menudata, setMenudata] = useState("Home");
+  const [menuData, setMenuData] = useState("Home");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -112,6 +118,10 @@ export default function Manager() {
       navigate("/");
     }
   }, [loaded, navigate, userData]);
+
+  const handleGOBack = () => {
+    navigate("/");
+  };
 
   return (
     <>
@@ -146,60 +156,61 @@ export default function Manager() {
           </DrawerHeader>
           <Divider />
           <List>
-            <ListItem
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => setMenudata("ReadCoffeeShop")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <MdDomain />
+            <ListItem disablePadding onClick={() => setMenuData("ReadCat")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <FaCat />
                 </ListItemIcon>
-                <ListItemText primary="Trang chủ" />
+                <ListItemText primary="Mèo" />
               </ListItemButton>
             </ListItem>
+
+            <ListItem disablePadding onClick={() => setMenuData("ReadDrink")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <BiSolidDrink />
+                </ListItemIcon>
+                <ListItemText primary="Đồ uống" />
+              </ListItemButton>
+            </ListItem>
+
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
-              onClick={() => setMenudata("CreateCoffeeShop")}
+              onClick={() => setMenuData("ReadCatProduct")}
             >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <MdCreateNewFolder />
+              <ListItemButton>
+                <ListItemIcon>
+                  <BiSolidBaguette />
                 </ListItemIcon>
-                <ListItemText primary="Thêm chi nhánh" />
+                <ListItemText primary="Sản phẩm cho mèo" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding onClick={() => setMenuData("ReadStaff")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <RxAvatar />
+                </ListItemIcon>
+                <ListItemText primary="Nhân viên" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleGOBack}>
+                <ListItemIcon>
+                  <RiArrowGoBackFill />
+                </ListItemIcon>
+                <ListItemText primary="Quay lại" />
               </ListItemButton>
             </ListItem>
           </List>
           <Divider />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {menudata == "ReadCoffeeShop" && <ReadCoffeeShop />}
-          {menudata == "CreateCoffeeShop" && <CreateCoffeeShop />}
+          {menuData == "ReadCat" && <ReadCat />}
+          {menuData == "ReadCatProduct" && <ReadCatProduct />}
+          {menuData == "ReadDrink" && <ReadDrink />}
+          {menuData == "ReadStaff" && <ReadStaff />}
         </Box>
       </Box>
     </>

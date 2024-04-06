@@ -16,21 +16,21 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CreateCoffeeShop from "../Admin/CreateCoffeeShop";
-import ReadCoffeeShop from "../../components/ReadCoffeeShop";
-import ReadCat from "../Manager/ReadCat";
+import { FaHome } from "react-icons/fa";
 import Collapse from "@mui/material/Collapse";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { MdDomain, MdCreateNewFolder } from "react-icons/md";
 import { useAuth, useUserData } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
-import MenuStaff from "../HomeStaff/Menu";
+import MenuStaff from "./Menu";
 import TableCoffeeShop1 from "../Table/TableCoffeeShop1";
 import TableCoffeeShop2 from "../Table/TableCoffeeShop2";
 import TableCoffeeShop3 from "../Table/TableCoffeeShop3";
 import TableCoffeeShop4 from "../Table/TableCoffeeShop4";
 import TableCoffeeShop5 from "../Table/TableCoffeeShop5";
+import { RiArrowGoBackFill } from "react-icons/ri";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -98,12 +98,13 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Admin() {
+export default function Staff() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [menuData, setMenuData] = useState("Home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -132,10 +133,14 @@ export default function Admin() {
   const { loaded } = useAuth();
 
   useEffect(() => {
-    if (loaded && (!userData || userData.roleName !== "Admin")) {
+    if (loaded && (!userData || userData.roleName !== "Staff")) {
       navigate("/");
     }
   }, [loaded, navigate, userData]);
+
+  const handleGOBack = () => {
+    navigate("/");
+  };
 
   return (
     <>
@@ -152,7 +157,7 @@ export default function Admin() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Admin
+              Staff
             </Typography>
           </Toolbar>
         </AppBar>
@@ -170,29 +175,25 @@ export default function Admin() {
           <List>
             <ListItem
               disablePadding
-              onClick={() => setMenuData("ReadCoffeeShop")}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleMenuOpen(e);
+              }}
             >
               <ListItemButton>
                 <ListItemIcon>
-                  <MdDomain />
+                  <FaHome />
                 </ListItemIcon>
                 <ListItemText primary="Trang chủ" />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding onClick={() => setMenuData("Readcat")}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <MdCreateNewFolder />
-                </ListItemIcon>
-                <ListItemText primary="Quản lý" />
-              </ListItemButton>
-            </ListItem>
+
             <ListItem disablePadding>
-              <ListItemButton onClick={handleMenuOpen}>
+              <ListItemButton onClick={handleGOBack}>
                 <ListItemIcon>
-                  <MdCreateNewFolder />
+                  <RiArrowGoBackFill />
                 </ListItemIcon>
-                <ListItemText primary="Nhân viên" />
+                <ListItemText primary="Quay lại" />
               </ListItemButton>
             </ListItem>
           </List>
@@ -205,7 +206,7 @@ export default function Admin() {
           MenuListProps={{ onMouseLeave: handleMenuClose }}
         >
           <MenuItem onClick={() => handleMenuChange("MenuStaff")}>
-            Menu Staff
+            Thực đơn
           </MenuItem>
           <MenuItem onClick={() => handleMenuChange("TableCoffeeShop1")}>
             Chi nhánh Bình Tân
@@ -224,9 +225,6 @@ export default function Admin() {
           </MenuItem>
         </Menu>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {menuData === "ReadCoffeeShop" && <ReadCoffeeShop />}
-          {menuData === "CreateCoffeeShop" && <CreateCoffeeShop />}
-          {menuData === "Readcat" && <ReadCat />}
           {menuData === "MenuStaff" && <MenuStaff />}
           {menuData === "TableCoffeeShop1" && <TableCoffeeShop1 />}
           {menuData === "TableCoffeeShop2" && <TableCoffeeShop2 />}

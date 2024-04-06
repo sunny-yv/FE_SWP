@@ -156,138 +156,158 @@ function CreateCoffee() {
 
   return (
     <>
-      <Box height={40} />
-      <div className="manager">
-        <Form onSubmit={handleSubmit}>
-          <FormField>
-            <label>Tên</label>
-            <input
-              placeholder="Tên"
-              value={coffeeName}
-              onChange={handleNameChange}
-            />
-          </FormField>
+      <div className="background">
+        <div className="manager">
+          <h1>Thêm Chi Nhánh Mới</h1>
+          <p>Điền thông tin chi tiết để thêm một chi nhánh mới vào hệ thống.</p>
+          <Form onSubmit={handleSubmit}>
+            <FormField>
+              <label>Tên</label>
+              <input
+                placeholder="Tên"
+                value={coffeeName}
+                onChange={handleNameChange}
+              />
+            </FormField>
 
-          <FormField>
-            <label>Giờ mở cửa</label>
-            <div style={{ display: "flex" }}>
-              <Select
-                value={openHour}
-                onChange={handleOpenHourChange}
-                style={{ marginRight: "5px" }}
-              >
-                {Array.from({ length: 12 }).map((_, index) => (
-                  <MenuItem key={index} value={index + 1}>
-                    {index + 1}
-                  </MenuItem>
-                ))}
-              </Select>
-              <Select
-                value={openMinute}
-                onChange={handleOpenMinuteChange}
-                style={{ marginRight: "5px" }}
-              >
-                <MenuItem value="00">00</MenuItem>
-                <MenuItem value="15">15</MenuItem>
-                <MenuItem value="30">30</MenuItem>
-                <MenuItem value="45">45</MenuItem>
-              </Select>
-              <Select value={openPeriod} onChange={handleOpenPeriodChange}>
-                <MenuItem value="AM">AM</MenuItem>
-                <MenuItem value="PM">PM</MenuItem>
-              </Select>
-            </div>
-          </FormField>
+            <FormField>
+              <label>Giờ mở cửa</label>
+              <div style={{ display: "flex" }}>
+                <Select
+                  value={openHour}
+                  onChange={handleOpenHourChange}
+                  style={{ marginRight: "5px", backgroundColor: "#fff" }}
+                >
+                  {Array.from({ length: 12 }).map((_, index) => (
+                    <MenuItem key={index} value={index + 1}>
+                      {index + 1}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Select
+                  value={openMinute}
+                  onChange={handleOpenMinuteChange}
+                  style={{ marginRight: "5px", backgroundColor: "#fff" }}
+                >
+                  <MenuItem value="00">00</MenuItem>
+                  <MenuItem value="15">15</MenuItem>
+                  <MenuItem value="30">30</MenuItem>
+                  <MenuItem value="45">45</MenuItem>
+                </Select>
+                <Select
+                  value={openPeriod}
+                  onChange={handleOpenPeriodChange}
+                  style={{ backgroundColor: "#fff" }}
+                >
+                  <MenuItem value="AM">AM</MenuItem>
+                  <MenuItem value="PM">PM</MenuItem>
+                </Select>
+              </div>
+            </FormField>
 
-          <FormField>
-            <label>Giờ đóng cửa</label>
-            <div style={{ display: "flex" }}>
-              <Select
-                value={closeHour}
-                onChange={handleCloseHourChange}
-                style={{ marginRight: "5px" }}
-              >
-                {Array.from({ length: 12 }).map((_, index) => (
-                  <MenuItem key={index} value={index + 1}>
-                    {index + 1}
-                  </MenuItem>
-                ))}
-              </Select>
-              <Select
-                value={closeMinute}
-                onChange={handleCloseMinuteChange}
-                style={{ marginRight: "5px" }}
-              >
-                <MenuItem value="00">00</MenuItem>
-                <MenuItem value="15">15</MenuItem>
-                <MenuItem value="30">30</MenuItem>
-                <MenuItem value="45">45</MenuItem>
-              </Select>
-              <Select value={closePeriod} onChange={handleClosePeriodChange}>
-                <MenuItem value="AM">AM</MenuItem>
-                <MenuItem value="PM">PM</MenuItem>
-              </Select>
-            </div>
-          </FormField>
+            <FormField>
+              <label>Giờ đóng cửa</label>
+              <div style={{ display: "flex" }}>
+                <Select
+                  value={closeHour}
+                  onChange={handleCloseHourChange}
+                  style={{ marginRight: "5px", backgroundColor: "#fff" }}
+                >
+                  {Array.from({ length: 12 }).map((_, index) => (
+                    <MenuItem key={index} value={index + 1}>
+                      {index + 1}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Select
+                  value={closeMinute}
+                  onChange={handleCloseMinuteChange}
+                  style={{ marginRight: "5px", backgroundColor: "#fff" }}
+                >
+                  <MenuItem value="00">00</MenuItem>
+                  <MenuItem value="15">15</MenuItem>
+                  <MenuItem value="30">30</MenuItem>
+                  <MenuItem value="45">45</MenuItem>
+                </Select>
+                <Select
+                  value={closePeriod}
+                  onChange={handleClosePeriodChange}
+                  style={{ backgroundColor: "#fff" }}
+                >
+                  <MenuItem value="AM">AM</MenuItem>
+                  <MenuItem value="PM">PM</MenuItem>
+                </Select>
+              </div>
+            </FormField>
 
-          <FormField>
-            <label>Địa chỉ</label>
-            <input
-              placeholder="Địa chỉ"
-              value={address}
-              onChange={handleAddress}
-            />
-          </FormField>
+            <FormField>
+              <label>Địa chỉ</label>
+              <input
+                placeholder="Địa chỉ"
+                value={address}
+                onChange={handleAddress}
+              />
+            </FormField>
 
-          <FormField>
-            <label>Số điện thoại</label>
-            <input
-              placeholder="Số điện thoại"
-              value={phoneNumber}
-              onChange={handlePhoneNumber}
-            />
-          </FormField>
+            <FormField>
+              <label>Số điện thoại</label>
+              <input
+                placeholder="Số điện thoại"
+                value={phoneNumber}
+                onChange={handlePhoneNumber}
+              />
+            </FormField>
 
-          <FormField>
-            <label>Mô tả</label>
-            <input
-              placeholder="Mô tả"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </FormField>
+            <FormField>
+              <label>Mô tả</label>
+              <input
+                placeholder="Mô tả"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </FormField>
 
-          <FormField>
-            <label>Ảnh</label>
-            <input
-              accept="image/*"
-              type="file"
-              placeholder="Last Name"
-              onChange={handleImageChange}
-            />
-          </FormField>
+            <FormField>
+              <label>Ảnh</label>
+              <input
+                accept="image/*"
+                type="file"
+                placeholder="Last Name"
+                onChange={handleImageChange}
+              />
+            </FormField>
 
-          <FormGroup aria-label="position" row>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={status}
-                  onChange={handleStatusChange}
-                  color="primary"
-                />
-              }
-              label="Trạng thái"
-              labelPlacement="start"
-              style={{ marginLeft: "0px" }}
-            />
-          </FormGroup>
-          <FormField>
-            <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
-          </FormField>
-          {isCreated && <p style={{ color: "green" }}>Thêm thành công!</p>}
-          <Button type="submit">Thêm</Button>
-          <Button onClick={handleGOBack}>Quay lại</Button>
-        </Form>
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={status}
+                    onChange={handleStatusChange}
+                    color="primary"
+                  />
+                }
+                label="Trạng thái"
+                labelPlacement="start"
+                style={{ marginLeft: "0px" }}
+              />
+            </FormGroup>
+            <FormField>
+              <Checkbox label="Tôi đồng ý với các Điều khoản và Điều kiện" />
+            </FormField>
+            {isCreated && <p style={{ color: "green" }}>Thêm thành công!</p>}
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "green",
+                color: "#fff",
+                marginRight: "20px",
+              }}
+            >
+              Thêm
+            </Button>
+            <Button onClick={handleGOBack}>Quay lại</Button>
+          </Form>
+        </div>
       </div>
     </>
   );

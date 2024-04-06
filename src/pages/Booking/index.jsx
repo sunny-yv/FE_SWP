@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./style.css";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { size } from "@floating-ui/core";
-
+import { useAuth } from "../../contexts/auth";
+import { toast } from "react-toastify";
 function Booking() {
+  const navigate = useNavigate();
+  const { loaded, user } = useAuth();
+  const toastDisplayedRef = useRef(false);
+
+  useEffect(() => {
+    if (loaded && !user && !toastDisplayedRef.current) {
+      toast.error("Bạn cần đăng nhập để đặt bàn.");
+      toastDisplayedRef.current = true;
+      navigate("/login");
+    }
+  }, [loaded, user, navigate]);
+
   return (
     <div className="booking-page">
       <Header />

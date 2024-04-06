@@ -12,15 +12,17 @@ function UpdateCatProduct() {
     catProductName: "",
     catProductType: "",
     price: "",
+
     image: null,
     status: false,
+    menus: "",
   });
 
   const [originalCatProductData, setOriginalCatProductData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCatProductData = async () => {
+    const fetchcatProductData = async () => {
       try {
         const response = await axios.get(
           `https://thecoffeeshopstore.azurewebsites.net/api/CatProducts/${catProductID}`
@@ -34,7 +36,7 @@ function UpdateCatProduct() {
       }
     };
 
-    fetchCatProductData();
+    fetchcatProductData();
   }, [catProductID]);
 
   const handleInputChange = (event) => {
@@ -45,7 +47,9 @@ function UpdateCatProduct() {
   const handleCheckboxChange = () => {
     setCatProductData({ ...catProductData, status: !catProductData.status });
   };
-
+  const handleGOBack = () => {
+    navigate("/manager");
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -56,8 +60,8 @@ function UpdateCatProduct() {
         const formData = new FormData();
         formData.append("catProductName", catProductData.catProductName);
         formData.append("catProductType", catProductData.catProductType);
-        formData.append("price", catProductData.price);
 
+        formData.append("price", catProductData.price);
         formData.append("status", catProductData.status);
 
         if (catProductData.image) {
@@ -77,14 +81,14 @@ function UpdateCatProduct() {
         setIsUpdated(true);
         setTimeout(() => {
           setIsUpdated(false);
-          navigate("/readcatproduct");
+          navigate("/manager");
         }, 1000);
       } else {
         console.log("Cat product data has not changed");
         setIsUpdated(true);
         setTimeout(() => {
           setIsUpdated(false);
-          navigate("/readcatproduct");
+          navigate("/manager");
         }, 1000);
       }
     } catch (error) {
@@ -93,84 +97,100 @@ function UpdateCatProduct() {
   };
 
   return (
-    <div className="manager">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <Form onSubmit={handleSubmit}>
-            <FormField>
-              <label>Tên</label>
-              <input
-                placeholder="Tên"
-                name="catProductName"
-                value={catProductData.catProductName}
-                onChange={handleInputChange}
-              />
-            </FormField>
+    <>
+      <div className="background">
+        <div className="manager">
+          <h1>Chỉnh Sửa Sản Phẩm Mèo</h1>
+          <p>
+            Điền thông tin chi tiết để chỉnh sửa sản phẩm mèo trên hệ thống.
+          </p>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              <Form onSubmit={handleSubmit}>
+                <FormField>
+                  <label>Tên</label>
+                  <input
+                    placeholder="Tên"
+                    name="catProductName"
+                    value={catProductData.catProductName}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <label>Loại</label>
+                  <input
+                    placeholder="Loại"
+                    name="catProductType"
+                    value={catProductData.catProductType}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <label>Giá</label>
+                  <input
+                    placeholder="Giá"
+                    name="price"
+                    value={catProductData.price}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
 
-            <FormField>
-              <label>Thể loại</label>
-              <input
-                placeholder="Thể loại"
-                name="catProductType"
-                value={catProductData.type}
-                onChange={handleInputChange}
-              />
-            </FormField>
+                <FormField>
+                  <label>Ảnh</label>
+                  <input
+                    accept="image/*"
+                    type="file"
+                    onChange={(event) =>
+                      setCatProductData({
+                        ...catProductData,
+                        image: event.target.files[0],
+                      })
+                    }
+                  />
+                </FormField>
 
-            <FormField>
-              <label>Giá</label>
-              <input
-                placeholder="Giá"
-                name="price"
-                value={catProductData.price}
-                onChange={handleInputChange}
-              />
-            </FormField>
-
-            <FormField>
-              <label>Ảnh</label>
-              <input
-                accept="image/*"
-                type="file"
-                onChange={(event) =>
-                  setCatProductData({
-                    ...catProductData,
-                    image: event.target.files[0],
-                  })
-                }
-              />
-            </FormField>
-
-            <FormField>
-              <Checkbox
-                checked={catProductData.status}
-                onChange={handleCheckboxChange}
-                label="Trạng thái"
-              />
-            </FormField>
-            {isUpdated && (
-              <p
-                style={{
-                  color: "green",
-                  fontSize: "20px",
-                  display: "flex",
-                  justifyContent: "center",
-                  fontWeight: "30px",
-                }}
-              >
-                {JSON.stringify(originalCatProductData) ===
-                JSON.stringify(catProductData)
-                  ? "Không có sự thay đổi"
-                  : "Sửa đổi đã được lưu thành công!"}
-              </p>
-            )}
-            <Button type="submit">Cập nhật</Button>
-          </Form>
-        </>
-      )}
-    </div>
+                <FormField>
+                  <Checkbox
+                    checked={catProductData.status}
+                    onChange={handleCheckboxChange}
+                    label="Trạng thái"
+                  />
+                </FormField>
+                {isUpdated && (
+                  <p
+                    style={{
+                      color: "green",
+                      fontSize: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                      fontWeight: "30px",
+                    }}
+                  >
+                    {JSON.stringify(originalCatProductData) ===
+                    JSON.stringify(catProductData)
+                      ? "Không có sự thay đổi"
+                      : "Sửa đổi đã được lưu thành công!"}
+                  </p>
+                )}
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "green",
+                    color: "#fff",
+                    marginRight: "20px",
+                  }}
+                >
+                  Cập nhật
+                </Button>
+                <Button onClick={handleGOBack}>Quay lại</Button>
+              </Form>
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 

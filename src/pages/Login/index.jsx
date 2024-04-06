@@ -24,6 +24,8 @@ function Login() {
       });
       if (response.roleName === "Admin") {
         navigate("/admin");
+      } else if (response.roleName === "Staff") {
+        navigate("/staff");
       } else {
         navigate("/");
       }

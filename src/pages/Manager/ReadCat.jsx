@@ -13,10 +13,29 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Icon } from "semantic-ui-react";
 import { Button as SemanticButton } from "semantic-ui-react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Typography,
+  Button,
+} from "@mui/material";
 function ReadCat() {
   const navigate = useNavigate();
   const [deletedIds, setDeletedIds] = useState([]);
   const [apiData, setApiData] = useState([]);
+  const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const handleConfirmDeleteDialogOpen = (id) => {
+    setConfirmDeleteDialogOpen(true);
+    setConfirmDeleteId(id);
+  };
+
+  const handleConfirmDeleteDialogClose = () => {
+    setConfirmDeleteDialogOpen(false);
+    setConfirmDeleteId(null);
+  };
   const handleEdit = (catID) => {
     navigate(`/updatecat/${catID}`);
   };
@@ -47,6 +66,7 @@ function ReadCat() {
         `https://thecoffeeshopstore.azurewebsites.net/api/Cats/${id}`
       );
       setDeletedIds([...deletedIds, id]);
+      handleConfirmDeleteDialogClose(); // Ẩn Dialog sau khi xóa thành công
     } catch (error) {
       console.error("Error deleting data:", error);
     }
@@ -57,7 +77,7 @@ function ReadCat() {
       <Box height={50} />
 
       <SemanticButton primary onClick={handleAdd}>
-        <Icon name="plus" /> Thêm chi nhánh
+        <Icon name="plus" /> Thêm mèo
       </SemanticButton>
       <Table celled>
         <TableHeader>
@@ -103,7 +123,7 @@ function ReadCat() {
                 <TableCell>
                   <SemanticButton
                     color="red"
-                    onClick={() => onDelete(data.catID)}
+                    onClick={() => handleConfirmDeleteDialogOpen(data.catID)}
                   >
                     Xóa
                   </SemanticButton>
@@ -113,6 +133,23 @@ function ReadCat() {
           })}
         </TableBody>
       </Table>
+      <Dialog
+        open={confirmDeleteDialogOpen}
+        onClose={handleConfirmDeleteDialogClose}
+      >
+        <DialogTitle>Xác nhận xóa</DialogTitle>
+        <DialogContent>
+          <Typography>Bạn có chắc chắn muốn xóa mục này không?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => onDelete(confirmDeleteId)} color="primary">
+            Xác nhận
+          </Button>
+          <Button onClick={handleConfirmDeleteDialogClose} color="primary">
+            Hủy
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

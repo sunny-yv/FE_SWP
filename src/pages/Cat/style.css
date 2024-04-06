@@ -10,14 +10,14 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* Căn giữa các thẻ */
   padding-inline: 56px;
-  /* width: 100%; */
+  padding-left: 20px; /* Thay đổi giá trị để căn chỉnh */
 }
 
 .card-1 {
-  /* margin: 5%; */
-  flex-wrap: wrap;
-  width: 25%;
+  width: calc(25% - 32px); /* Sử dụng calc để tính toán kích thước thẻ với padding */
+  margin: 16px; /* Thêm margin giữa các thẻ */
   padding: 16px;
   height: 600px;
 }

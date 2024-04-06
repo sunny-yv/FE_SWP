@@ -57,7 +57,9 @@ function ListAllCat() {
     <div className="cat-page">
       <Header />
       <div className="cat-text-1">
-        <h1>Tất cả các bé mèo của Donna Cat Coffee</h1>
+        <h1 style={{ marginTop: "50px" }}>
+          Tất cả các bé mèo của Donna Cat Coffee
+        </h1>
       </div>
       <div className="input-cat">
         <FontAwesomeIcon icon={faSearch} />
@@ -92,9 +94,7 @@ function ListAllCat() {
                       <Typography gutterBottom variant="h8" component="div">
                         {card.type}
                       </Typography>
-                      <Typography gutterBottom variant="h8" component="div">
-                        Chi nhánh 1
-                      </Typography>
+
                       <Typography variant="body2" color="text.secondary">
                         {card.description}
                       </Typography>

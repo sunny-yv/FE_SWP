@@ -6,11 +6,13 @@ import {
   TableCell,
   TableBody,
   Table,
-  Button,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import { Icon } from "semantic-ui-react";
+import { Button as SemanticButton } from "semantic-ui-react";
 function ReadCatProduct() {
   const navigate = useNavigate();
   const [deletedIds, setDeletedIds] = useState([]);
@@ -18,7 +20,9 @@ function ReadCatProduct() {
   const handleEdit = (catProductID) => {
     navigate(`/updatecatproduct/${catProductID}`);
   };
-
+  const handleAdd = () => {
+    navigate("/createcatproduct");
+  };
   useEffect(() => {
     axios
       .get(`https://thecoffeeshopstore.azurewebsites.net/api/CatProducts/`)
@@ -49,48 +53,66 @@ function ReadCatProduct() {
   };
 
   return (
-    <Table celled>
-      <TableHeader>
-        <TableRow>
-          <TableHeaderCell>Tên</TableHeaderCell>
-          <TableHeaderCell>Thể loại</TableHeaderCell>
-          <TableHeaderCell>Giá</TableHeaderCell>
-          <TableHeaderCell>Sửa</TableHeaderCell>
-          <TableHeaderCell>Xóa</TableHeaderCell>
-          {/* <TableHeaderCell>Quay lại</TableHeaderCell> */}
-        </TableRow>
-      </TableHeader>
+    <>
+      <Box height={50} />
 
-      <TableBody>
-        {apiData.map((data) => {
-          return (
-            <TableRow key={data.catProductID}>
-              {/* <TableCell>{data.catID}</TableCell> */}
-              <TableCell>{data.catProductName}</TableCell>
-              <TableCell>{data.catProductType}</TableCell>
-              <TableCell>{data.price}</TableCell>
+      <SemanticButton primary onClick={handleAdd}>
+        <Icon name="plus" /> Thêm sản phẩm cho mèo
+      </SemanticButton>
+      <Table celled>
+        <TableHeader>
+          <TableRow>
+            {/* <TableHeaderCell>ID</TableHeaderCell> */}
+            <TableHeaderCell>Tên</TableHeaderCell>
+            <TableHeaderCell>Thể loại</TableHeaderCell>
+            <TableHeaderCell>Giá</TableHeaderCell>
 
-              {/* <TableCell>{data.image}</TableCell> */}
+            <TableHeaderCell>Ảnh</TableHeaderCell>
+            <TableHeaderCell>Sửa</TableHeaderCell>
+            <TableHeaderCell>Xóa</TableHeaderCell>
+            {/* <TableHeaderCell>Quay lại</TableHeaderCell> */}
+          </TableRow>
+        </TableHeader>
 
-              <TableCell>
-                <Button
-                  color="blue"
-                  onClick={() => handleEdit(data.catProductID)}
-                >
-                  Sửa
-                </Button>
-              </TableCell>
+        <TableBody>
+          {apiData.map((data) => {
+            return (
+              <TableRow key={data.catProductID}>
+                {/* <TableCell>{data.catID}</TableCell> */}
+                <TableCell>{data.catProductName}</TableCell>
+                <TableCell>{data.catProductType}</TableCell>
+                <TableCell>{data.price}</TableCell>
+                <TableCell style={{ padding: "10px" }}>
+                  <img
+                    src={data.image}
+                    alt="Cat"
+                    style={{ maxWidth: "100px" }}
+                  />
+                </TableCell>
 
-              <TableCell>
-                <Button color="red" onClick={() => onDelete(data.catProductID)}>
-                  Xóa
-                </Button>
-              </TableCell>
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+                <TableCell>
+                  <SemanticButton
+                    color="blue"
+                    onClick={() => handleEdit(data.catProductID)}
+                  >
+                    Sửa
+                  </SemanticButton>
+                </TableCell>
+
+                <TableCell>
+                  <SemanticButton
+                    color="red"
+                    onClick={() => onDelete(data.catProductID)}
+                  >
+                    Xóa
+                  </SemanticButton>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </>
   );
 }
 

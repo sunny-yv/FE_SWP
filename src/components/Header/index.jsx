@@ -50,7 +50,9 @@ function Header() {
                 Chi nhánh Tân Bình
               </Dropdown.Item>
               <Dropdown.Item href="/location4">Chi nhánh Quận 8</Dropdown.Item>
-              <Dropdown.Item href="/location5">Chi nhánh Quận 2</Dropdown.Item>
+              <Dropdown.Item href="/location5">
+                Chi nhánh Quận Đa Kao- Quận 1
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <li>
@@ -93,7 +95,7 @@ function Header() {
                   Các bé mèo ở chi nhánh Quận 8
                 </Dropdown.Item>
                 <Dropdown.Item href="/catshop5">
-                  Các bé mèo ở chi nhánh Quận 2
+                  Các bé mèo ở chi nhánh Đa Kao- Quận 1
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -106,9 +108,35 @@ function Header() {
             ĐẶT BÀN
           </Link>
 
-          <li>
-            <a href="#">THẺ</a>
-          </li>
+          {userData && userData.roleName === "Admin" ? (
+            <Link
+              to="/admin"
+              style={{ marginLeft: "10px", color: "#fff", marginRight: "10px" }}
+            >
+              ADMIN
+            </Link>
+          ) : userData && userData.roleName === "Manager" ? (
+            <Link
+              to="/manager"
+              style={{ marginLeft: "10px", color: "#fff", marginRight: "10px" }}
+            >
+              MANAGER
+            </Link>
+          ) : userData && userData.roleName === "Staff" ? (
+            <Link
+              to="/staff"
+              style={{ marginLeft: "10px", color: "#fff", marginRight: "10px" }}
+            >
+              STAFF
+            </Link>
+          ) : (
+            <Link
+              to="#"
+              style={{ marginLeft: "10px", color: "#fff", marginRight: "10px" }}
+            >
+              THẺ
+            </Link>
+          )}
         </ul>
       </div>
       <div className="header-right">
@@ -139,11 +167,11 @@ function Header() {
           )}
         </div>
 
-        <div className="input-wrapper">
+        {/* <div className="input-wrapper">
           <FontAwesomeIcon icon={faSearch} />
           <input type="text" placeholder="Tìm kiếm..." />
         </div>
-        <FontAwesomeIcon icon={faShoppingCart} size="2x" color="white" />
+        <FontAwesomeIcon icon={faShoppingCart} size="2x" color="white" /> */}
       </div>
     </div>
   );

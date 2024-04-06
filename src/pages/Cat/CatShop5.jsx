@@ -35,7 +35,9 @@ function CatShop5() {
       <Header />
 
       <div className="cat-text-1">
-        <h1>Các Boss tại chi nhánh 1 của Donna</h1>
+        <h1 style={{ marginTop: "50px" }}>
+          Các Boss tại chi nhánh Đa Kao - Quận 1 của Donna
+        </h1>
       </div>
       <div className="cards">
         {loaded
@@ -60,7 +62,7 @@ function CatShop5() {
                         {card.type}
                       </Typography>
                       <Typography gutterBottom variant="h8" component="div">
-                        Chi nhánh Quận 2
+                        Chi nhánh Đa Kao - Quận 1
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {card.description}

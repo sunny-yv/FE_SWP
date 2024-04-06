@@ -24,13 +24,13 @@ function index() {
 
           <br />
           <br />
-          <p>Kitty Cafe Nottingham hiện chỉ có THẺ.</p>
+          <p>Donna Coffee Nottingham hiện chỉ có THẺ.</p>
           <br />
           <br />
           <p>
-            Kitty Cafe có phí phúc lợi chỉ £7/người lớn và £5/trẻ em. Điều này
-            cho phép chúng tôi duy trì các tiêu chuẩn cao về phúc lợi động vật
-            cho mèo của chúng tôi
+            Donna Coffee có phí phúc lợi chỉ 50.000VND/người lớn và
+            20.000VND/trẻ em. Điều này cho phép chúng tôi duy trì các tiêu chuẩn
+            cao về phúc lợi động vật cho mèo của chúng tôi
           </p>
           <br />
           <br />

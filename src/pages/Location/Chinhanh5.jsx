@@ -91,7 +91,7 @@ function Location2() {
                   }}
                 >
                   <Link
-                    to="/table"
+                    to="/tablecoffeeshop5"
                     style={{
                       textDecoration: "none",
                       color: "inherit",
@@ -104,37 +104,10 @@ function Location2() {
               </div>
             </div>
           </div>
-          <div className="column">
-            <div className="img-location">
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-            </div>
-          </div>
-          <div className="column">
-            <div className="img-location">
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-              {coffeeShop.image && (
-                <img src={coffeeShop.image} alt="Coffee Shop Image" />
-              )}
-            </div>
+          <div className="img-location" style={{ width: 1000 }}>
+            {coffeeShop.image && (
+              <img src={coffeeShop.image} alt="Coffee Shop Image" />
+            )}
           </div>
         </div>
       )}

@@ -71,7 +71,7 @@ function Cat() {
           </a>
 
           <a href="/catshop1" style={linkStyles}>
-            Boss của chi nhánh 1 nhà Donna
+            Boss của chi nhánh Bình Tân nhà Donna
           </a>
         </div>
         <div style={cardStyles}>
@@ -84,7 +84,7 @@ function Cat() {
           </a>
 
           <a href="/catshop2" style={linkStyles}>
-            Boss của chi nhánh 2 nhà Donna
+            Boss của chi nhánh Quận 1 nhà Donna
           </a>
         </div>
         <div style={cardStyles}>
@@ -97,7 +97,7 @@ function Cat() {
           </a>
 
           <a href="/catshop3" style={linkStyles}>
-            Boss của chi nhánh 3 nhà Donna
+            Boss của chi nhánh Tân Bình nhà Donna
           </a>
         </div>
         <div style={cardStyles}>
@@ -110,7 +110,7 @@ function Cat() {
           </a>
 
           <a href="/catshop4" style={linkStyles}>
-            Boss của chi nhánh 4 nhà Donna
+            Boss của chi nhánh Quận 8 nhà Donna
           </a>
         </div>
         <div style={cardStyles}>
@@ -123,7 +123,7 @@ function Cat() {
           </a>
 
           <a href="/catshop4" style={linkStyles}>
-            Boss của chi nhánh 5 nhà Donna
+            Boss của chi nhánh Đa Kao- Quận 1 nhà Donna
           </a>
         </div>
       </div>
