@@ -31,6 +31,8 @@ import TableCoffeeShop2 from "../Table/TableCoffeeShop2";
 import TableCoffeeShop3 from "../Table/TableCoffeeShop3";
 import TableCoffeeShop4 from "../Table/TableCoffeeShop4";
 import TableCoffeeShop5 from "../Table/TableCoffeeShop5";
+import { RiArrowGoBackFill } from "react-icons/ri";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -136,6 +138,9 @@ export default function Admin() {
       navigate("/");
     }
   }, [loaded, navigate, userData]);
+  const handleGOBack = () => {
+    navigate("/");
+  };
 
   return (
     <>
@@ -193,6 +198,15 @@ export default function Admin() {
                   <MdCreateNewFolder />
                 </ListItemIcon>
                 <ListItemText primary="Nhân viên" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleGOBack}>
+                <ListItemIcon>
+                  <RiArrowGoBackFill />
+                </ListItemIcon>
+                <ListItemText primary="Quay lại" />
               </ListItemButton>
             </ListItem>
           </List>
